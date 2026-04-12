@@ -1,0 +1,62 @@
+/* Remove darker background from tables in all views */
+
+/* Reading view */
+.markdown-rendered table,
+.markdown-preview-view table {
+  background-color: transparent !important;
+}
+
+.markdown-rendered table th,
+.markdown-preview-view table th {
+  background-color: transparent !important;
+  color: var(--text-normal) !important;
+}
+
+.markdown-rendered table td,
+.markdown-preview-view table td {
+  background-color: transparent !important;
+}
+
+.markdown-rendered table tr,
+.markdown-preview-view table tr {
+  background-color: transparent !important;
+}
+
+/* Remove alternating row colors */
+.markdown-rendered table tr:nth-child(even),
+.markdown-preview-view table tr:nth-child(even) {
+  background-color: transparent !important;
+}
+
+.markdown-rendered table tr:nth-child(odd),
+.markdown-preview-view table tr:nth-child(odd) {
+  background-color: transparent !important;
+}
+
+/* Live Preview (edit mode) */
+.cm-table-widget table {
+  background-color: transparent !important;
+}
+
+.cm-table-widget th {
+  background-color: transparent !important;
+  color: var(--text-normal) !important;
+}
+
+.cm-table-widget td,
+.cm-table-widget tr {
+  background-color: transparent !important;
+}
+
+.cm-table-widget tr:nth-child(even),
+.cm-table-widget tr:nth-child(odd) {
+  background-color: transparent !important;
+}
+
+/* Print/PDF specific */
+@media print {
+  table, th, td, tr {
+    background-color: transparent !important;
+    background: none !important;
+  }
+}

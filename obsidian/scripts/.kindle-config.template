@@ -1,0 +1,18 @@
+# Kindle Email Delivery Configuration
+# Copy this file to .kindle-config and fill in your details
+
+# Your Kindle email address (find in Amazon → Content & Devices → Preferences)
+KINDLE_EMAIL=your-kindle@kindle.com
+
+# Your Gmail address
+GMAIL_ADDRESS=your-email@gmail.com
+
+# Gmail App Password (NOT your regular Gmail password)
+# Create at: https://myaccount.google.com/apppasswords
+GMAIL_APP_PASSWORD=your-16-digit-app-password
+
+# Archive directory for sent EPUBs (can be relative or absolute path)
+# Examples:
+#   ARCHIVE_DIR=KindleArchive                    (relative to vault root)
+#   ARCHIVE_DIR=/Users/you/Documents/Kindle     (absolute path)
+ARCHIVE_DIR=KindleArchive

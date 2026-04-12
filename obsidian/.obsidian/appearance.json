@@ -1,0 +1,19 @@
+{
+  "cssTheme": "Novadust",
+  "accentColor": "#a2a419",
+  "interfaceFontFamily": "Gujarati Sangam MN",
+  "textFontFamily": "Gujarati Sangam MN",
+  "theme": "moonstone",
+  "translucency": true,
+  "baseFontSizeAction": true,
+  "baseFontSize": 13,
+  "showRibbon": false,
+  "showViewHeader": false,
+  "nativeMenus": true,
+  "enabledCssSnippets": [
+    "smaller-headings",
+    "image-max-width",
+    "table-no-dark-background",
+    "edit-mode-table-borders"
+  ]
+}

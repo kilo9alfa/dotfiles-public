@@ -1,0 +1,63 @@
+/* Reduce heading sizes by ~30% */
+
+/* Reading view */
+.markdown-rendered h1,
+.markdown-preview-view h1 {
+  font-size: 1.4em !important;
+}
+
+.markdown-rendered h2,
+.markdown-preview-view h2 {
+  font-size: 1.25em !important;
+}
+
+.markdown-rendered h3,
+.markdown-preview-view h3 {
+  font-size: 1.1em !important;
+}
+
+.markdown-rendered h4,
+.markdown-preview-view h4 {
+  font-size: 1.05em !important;
+}
+
+.markdown-rendered h5,
+.markdown-preview-view h5 {
+  font-size: 1em !important;
+}
+
+.markdown-rendered h6,
+.markdown-preview-view h6 {
+  font-size: 0.95em !important;
+}
+
+/* Editing view (Live Preview & Source) */
+.cm-header-1,
+.HyperMD-header-1 {
+  font-size: 1.4em !important;
+}
+
+.cm-header-2,
+.HyperMD-header-2 {
+  font-size: 1.25em !important;
+}
+
+.cm-header-3,
+.HyperMD-header-3 {
+  font-size: 1.1em !important;
+}
+
+.cm-header-4,
+.HyperMD-header-4 {
+  font-size: 1.05em !important;
+}
+
+.cm-header-5,
+.HyperMD-header-5 {
+  font-size: 1em !important;
+}
+
+.cm-header-6,
+.HyperMD-header-6 {
+  font-size: 0.95em !important;
+}

@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Secrets - never commit these
+*.pem
+*.key
+.env
+.env.*
+credentials.json
+
+# Editor
+*.swp
+*.swo
+*~
+
+# Nested repos
+sister/
+
+# Compiled
+*.pyc
+__pycache__/

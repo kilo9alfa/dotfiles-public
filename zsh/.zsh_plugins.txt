@@ -1,0 +1,18 @@
+# Zsh plugins managed by Antidote
+# https://getantidote.github.io/
+
+# Completions
+mattmc3/ez-compinit
+zsh-users/zsh-completions
+
+# Syntax highlighting and suggestions
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-history-substring-search
+
+# Fuzzy history search with fzf
+joshskidmore/zsh-fzf-history-search
+
+# Utility functions
+belak/zsh-utils path:editor
+belak/zsh-utils path:history

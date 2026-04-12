@@ -1,0 +1,18 @@
+{
+  "readableLineLength": false,
+  "strictLineBreaks": true,
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": true,
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "A4",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 55
+  },
+  "promptDelete": false,
+  "autoPairBrackets": false,
+  "showInlineTitle": true,
+  "detectAllFileExtensions": true,
+  "showLineNumber": true
+}

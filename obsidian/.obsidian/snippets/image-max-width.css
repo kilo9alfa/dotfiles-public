@@ -1,0 +1,6 @@
+/* Limit all embedded images to 900px max width */
+.markdown-reading-view img,
+.markdown-preview-view img,
+.cm-content img {
+  max-width: 900px;
+}

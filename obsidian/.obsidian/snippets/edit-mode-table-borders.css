@@ -1,0 +1,17 @@
+/* Show table borders in edit mode (Live Preview) */
+
+/* Table cell borders in editor */
+.cm-table-widget td,
+.cm-table-widget th {
+  border: 1px solid var(--table-border-color, var(--background-modifier-border)) !important;
+}
+
+/* Ensure table has border-collapse for clean lines */
+.cm-table-widget table {
+  border-collapse: collapse;
+}
+
+/* Row lines for better readability */
+.cm-table-widget tr {
+  border-bottom: 1px solid var(--table-border-color, var(--background-modifier-border)) !important;
+}
