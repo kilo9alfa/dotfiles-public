@@ -1,0 +1,26 @@
+# Television global config
+# Docs: https://github.com/alexpasmantier/television
+# Default config reference: https://github.com/alexpasmantier/television/blob/main/.config/config.toml
+
+default_channel = "files"
+
+[ui]
+theme = "gruvbox-dark"
+orientation = "landscape"
+
+[ui.input_bar]
+position = "top"
+
+[ui.preview_panel]
+size = 55
+scrollbar = true
+
+[keybindings]
+esc = "quit"
+ctrl-c = "quit"
+down = "select_next_entry"
+ctrl-j = "select_next_entry"
+up = "select_prev_entry"
+ctrl-k = "select_prev_entry"
+enter = "confirm_selection"
+ctrl-o = "toggle_preview"

@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Open a markdown file in Obsidian via URI scheme.
+# Usage: obsidian-open <absolute-file-path>
+#
+# Customize the vault map below: each entry is "vault-name|absolute-path-to-vault-root".
+# The vault name must match the name registered in Obsidian
+# (~/Library/Application Support/obsidian/obsidian.json on macOS).
+
+set -euo pipefail
+
+file="$1"
+
+vaults=(
+  "MyVault|$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/MyVault"
+  # Add more vaults here, one per line:
+  # "OtherVault|$HOME/path/to/OtherVault"
+)
+
+vault=""
+rel=""
+for entry in "${vaults[@]}"; do
+  name="${entry%%|*}"
+  root="${entry#*|}"
+  if [[ "$file" == "$root"/* ]]; then
+    vault="$name"
+    rel="${file#$root/}"
+    break
+  fi
+done
+
+if [[ -z "$vault" ]]; then
+  echo "File is not inside a known Obsidian vault: $file" >&2
+  exit 1
+fi
+
+# URL-encode the relative path with python (handles spaces, unicode, etc.)
+encoded=$(python3 -c "import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1]))" "$rel")
+
+open "obsidian://open?vault=${vault}&file=${encoded}"

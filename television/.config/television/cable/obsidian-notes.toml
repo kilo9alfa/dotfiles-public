@@ -1,0 +1,30 @@
+# Fuzzy-finder channel for Obsidian markdown notes.
+# Customize OBSIDIAN_VAULT_PATH and OBSIDIAN_VAULT_NAME below to match your setup.
+# Default assumes an iCloud-synced Obsidian vault on macOS.
+
+[metadata]
+name = "obsidian-notes"
+description = "Search markdown notes across an Obsidian vault, open in Obsidian"
+requirements = ["fd", "bat"]
+
+[source]
+# Edit this path to point at your vault root.
+command = "fd -e md . \"$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/MyVault\""
+
+[preview]
+command = "bat --color=always --style=plain --line-range=:200 '{}'"
+
+[ui]
+layout = "landscape"
+
+[ui.preview_panel]
+size = 60
+
+[keybindings]
+enter = "actions:open_in_obsidian"
+
+[actions.open_in_obsidian]
+description = "Open in Obsidian"
+command = "$HOME/.config/television/bin/obsidian-open '{}'"
+shell = "bash"
+mode = "execute"

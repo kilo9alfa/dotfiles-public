@@ -29,6 +29,7 @@ stow karabiner    # keyboard remapping (use --no-folding)
 | `brew/` | Homebrew packages (Brewfile) | `brew bundle --file=brew/Brewfile` |
 | `macos/` | macOS defaults (Dock, Finder, screenshots, etc.) | `./macos/defaults.sh` |
 | `obsidian/` | Obsidian vault config, CSS snippets, Kindle scripts | manual copy |
+| `television/` | [Television](https://github.com/alexpasmantier/television) fuzzy-finder TUI config + custom channels (Obsidian notes, session summaries) | `stow --no-folding television` |
 | `keyboard-shortcuts.md` | Full keyboard shortcuts reference | reference doc |
 
 ## Cherry-Picking
@@ -85,6 +86,26 @@ cp obsidian/scripts/.kindle-config.template obsidian/scripts/.kindle-config
 ```
 
 Requires: `pandoc` (included in Brewfile), Gmail app password.
+
+## Television (Fuzzy Finder TUI)
+
+[Television](https://github.com/alexpasmantier/television) is a general-purpose fuzzy finder. The `television/` package adds two custom channels:
+
+- **`obsidian-notes`** — fuzzy across `.md` files in an Obsidian vault, opens the selected note in Obsidian via URI scheme
+- **`session-summaries`** — finds Claude Code `EndOfSessionSummary.md` files across `~/code` projects, opens in VS Code
+
+```bash
+brew install television fd bat
+stow --no-folding television
+
+# Edit these to match your vault path and registered vault name:
+#   television/.config/television/cable/obsidian-notes.toml  (vault path)
+#   television/.config/television/bin/obsidian-open          (vault name → root map)
+
+tv list-channels
+tv obsidian-notes
+tv session-summaries
+```
 
 ## Font
 

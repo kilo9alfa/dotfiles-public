@@ -1,0 +1,28 @@
+# Fuzzy-finder channel for Claude Code End-of-Session summaries.
+# Adjust the source path to wherever your code projects live.
+
+[metadata]
+name = "session-summaries"
+description = "Find Claude Code End-of-Session summaries across all your code projects"
+requirements = ["fd", "bat"]
+
+[source]
+command = "fd --type f 'EndOfSessionSummary\\.md$' \"$HOME/code\""
+
+[preview]
+command = "bat --color=always --style=plain --line-range=:300 '{}'"
+
+[ui]
+layout = "landscape"
+
+[ui.preview_panel]
+size = 65
+
+[keybindings]
+enter = "actions:open_in_code"
+
+[actions.open_in_code]
+description = "Open in VS Code"
+command = "code '{}'"
+shell = "bash"
+mode = "execute"
