@@ -88,15 +88,57 @@ clauded() {
         claude --dangerously-skip-permissions --resume "$resume_id"
         return
     fi
-    local latest=$(\ls -1t docs/*.EndOfSessionSummary.md 2>/dev/null | head -1)
-    if [ -n "$latest" ]; then
-        echo "📋 Last session: $latest"
-        local session_id=$(sed -n 's/.*claude --resume \([^ ]*\).*/\1/p' "$latest" | head -1)
+    if [[ "$1" == artifact* ]]; then
+        # Load artifact channel for interactive HTML feedback
+        # Usage: clauded artifact              (kilo9alfa root)
+        #        clauded artifact:b2026        (cd to source repo)
+        #        clauded artifact:bru2025_maxdis
+        local artifact_project="${1#artifact}"
+        artifact_project="${artifact_project#:}"
+        local k9a_dir="/Users/david/code/kilo9alfa"
+
+        # Map project keys to their source directories.
+        # When a project is specified, Claude's session runs from the source
+        # repo so it edits the right files and has the project's CLAUDE.md.
+        local work_dir="$k9a_dir"
+        case "$artifact_project" in
+            b2026)           work_dir="/Users/david/code/b2026" ;;
+            bru2025_maxdis)  work_dir="/Users/david/code/bru2025" ;;
+            bru2025)         work_dir="/Users/david/code/bru2025" ;;
+            x)               work_dir="$k9a_dir" ;;  # source is Obsidian, serve from k9a
+            "")              work_dir="$k9a_dir" ;;
+        esac
+
+        echo "🎨 Starting artifact channel${artifact_project:+ (project: $artifact_project)}"
+        echo "   Working dir: $work_dir"
+        local open_url="http://localhost:3000${artifact_project:+/${artifact_project}/}"
+        echo "   Preview: $open_url"
+        echo "   Tip: click 💬 Feedback on any element to send comments to Claude"
+        # Kill any existing artifact server to avoid port conflict
+        lsof -ti:3000 | xargs kill 2>/dev/null
+        # Open browser after delay — server needs ~4s to start via MCP
+        (sleep 5 && open "$open_url") &
+        # Pass MCP config inline so it only runs for artifact sessions
+        local mcp_json='{"mcpServers":{"artifact":{"command":"/Users/david/.bun/bin/bun","args":["/Users/david/code/kilo9alfa/artifacts/channel.ts"]}}}'
+        cd "$work_dir" && claude --dangerously-skip-permissions \
+               --mcp-config "$mcp_json" \
+               --dangerously-load-development-channels server:artifact \
+               "${@:2}"
+        return
+    fi
+    # Prefer lean CurrentState.md; fall back to latest EndOfSessionSummary.md
+    local context_file="docs/CurrentState.md"
+    if [ ! -f "$context_file" ]; then
+        context_file=$(\ls -1t docs/*.EndOfSessionSummary.md 2>/dev/null | head -1)
+    fi
+    if [ -n "$context_file" ] && [ -f "$context_file" ]; then
+        echo "📋 Loading context: $context_file"
+        local session_id=$(sed -n 's/.*claude --resume \([^ ]*\).*/\1/p' "$context_file" | head -1)
         if [ -n "$session_id" ]; then
             echo "🔗 Resume ID: $session_id"
         fi
         claude --dangerously-skip-permissions \
-            --append-system-prompt "$(cat -- "$latest")" "$@"
+            --append-system-prompt "$(cat -- "$context_file")" "$@"
     else
         claude --dangerously-skip-permissions "$@"
     fi
@@ -122,3 +164,10 @@ export NVM_DIR="$HOME/.nvm"
 # ===========================================
 # Show system info on new terminal (optional)
 # command -v fastfetch >/dev/null 2>&1 && fastfetch
+
+# bun completions
+[ -s "/Users/david/.bun/_bun" ] && source "/Users/david/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

@@ -1,0 +1,13 @@
+/* kilo9alfa.com dark background — #1f2a36 */
+.theme-dark {
+    --background-primary: #1f2a36;
+    --background-primary-alt: #1f2a36;
+    --background-secondary: #1f2a36;
+    --background-secondary-alt: #2a3644;
+}
+
+/* Match VS Code font (IoskeleyMono) */
+body {
+    --font-text-theme: "IoskeleyMono", Menlo, Monaco, "Courier New", monospace;
+    --font-monospace-theme: "IoskeleyMono Nerd Font", "IoskeleyMono", Menlo, Monaco, monospace;
+}

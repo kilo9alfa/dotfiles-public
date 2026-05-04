@@ -34,5 +34,7 @@
   "chatmd-custom",
   "git-folder-sync",
   "obsidian-paste-image-rename",
-  "vscode-editor"
+  "vscode-editor",
+  "hidden-folders-access",
+  "codeblock-customizer"
 ]
