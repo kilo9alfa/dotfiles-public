@@ -31,13 +31,15 @@
     "telemetry.feedback.enabled": false,
     "telemetry.telemetryLevel": "off",
     "workbench.colorCustomizations": {
-        "editor.background": "#1f2a36",
-        "sideBar.background": "#1f2a36",
-        "activityBar.background": "#1f2a36",
-        "panel.background": "#1f2a36",
-        "terminal.background": "#1f2a36",
-        "titleBar.activeBackground": "#1f2a36",
-        "tab.inactiveBackground": "#1f2a36",
-        "tab.activeBackground": "#2a3644"
+        "[*Dark*]": {
+            "editor.background": "#1f2a36",
+            "sideBar.background": "#161e26",
+            "activityBar.background": "#161e26",
+            "panel.background": "#1f2a36",
+            "terminal.background": "#1f2a36",
+            "titleBar.activeBackground": "#1f2a36",
+            "tab.inactiveBackground": "#1f2a36",
+            "tab.activeBackground": "#2a3644"
+        }
     }
 }
