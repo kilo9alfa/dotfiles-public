@@ -1,9 +1,14 @@
-/* kilo9alfa.com dark background — #1f2a36 */
+/* kilo9alfa dark palette — matches VS Code dark theme. Dark mode only. */
 .theme-dark {
     --background-primary: #1f2a36;
     --background-primary-alt: #1f2a36;
-    --background-secondary: #1f2a36;
-    --background-secondary-alt: #2a3644;
+    --background-secondary: #161e26;
+    --background-secondary-alt: #161e26;
+    --titlebar-background: #1f2a36;
+    --titlebar-background-focused: #1f2a36;
+    --tab-background-active: #2a3644;
+    --tab-background: #1f2a36;
+    --ribbon-background: #161e26;
 }
 
 /* Match VS Code font (IoskeleyMono) */
