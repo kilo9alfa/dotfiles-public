@@ -1,17 +1,37 @@
-/* Show table borders in edit mode (Live Preview) */
+/* Show table borders in edit mode (Live Preview) and reading mode.
+   In dark theme, use light blue borders. */
 
-/* Table cell borders in editor */
-.cm-table-widget td,
-.cm-table-widget th {
-  border: 1px solid var(--table-border-color, var(--background-modifier-border)) !important;
+:root {
+  --table-cell-border: var(--background-modifier-border);
 }
 
-/* Ensure table has border-collapse for clean lines */
+body.theme-dark {
+  --table-cell-border: #3d5a78;
+}
+
+/* Edit mode (Live Preview) */
 .cm-table-widget table {
   border-collapse: collapse;
 }
 
-/* Row lines for better readability */
+.cm-table-widget td,
+.cm-table-widget th {
+  border: 1px solid var(--table-cell-border) !important;
+}
+
 .cm-table-widget tr {
-  border-bottom: 1px solid var(--table-border-color, var(--background-modifier-border)) !important;
+  border-bottom: 1px solid var(--table-cell-border) !important;
+}
+
+/* Reading mode */
+.markdown-rendered table,
+.markdown-preview-view table {
+  border-collapse: collapse;
+}
+
+.markdown-rendered table td,
+.markdown-rendered table th,
+.markdown-preview-view table td,
+.markdown-preview-view table th {
+  border: 1px solid var(--table-cell-border) !important;
 }
