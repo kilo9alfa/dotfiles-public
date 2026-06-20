@@ -55,6 +55,27 @@ echo "2. Sending to Kindle..."
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if python3 "$SCRIPT_DIR/send-to-kindle.py" "$EPUB_FILE"; then
     echo "   ✓ Email sent to Kindle"
+
+    # Mark source note's frontmatter with SentToKindle: yes
+    python3 - "$INPUT_FILE" <<'PYEOF'
+import sys, re, pathlib
+p = pathlib.Path(sys.argv[1])
+text = p.read_text(encoding="utf-8")
+fm_re = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
+m = fm_re.match(text)
+if m:
+    body = text[m.end():]
+    fm = m.group(1)
+    if re.search(r"^SentToKindle\s*:", fm, re.MULTILINE):
+        fm = re.sub(r"^SentToKindle\s*:.*$", "SentToKindle: yes", fm, count=1, flags=re.MULTILINE)
+    else:
+        fm = fm + "\nSentToKindle: yes"
+    new = f"---\n{fm}\n---\n{body}"
+else:
+    new = f"---\nSentToKindle: yes\n---\n\n{text}"
+p.write_text(new, encoding="utf-8")
+print("   ✓ Marked source note: SentToKindle: yes")
+PYEOF
 else
     echo "   ⚠ Warning: Failed to send email"
     echo "   → EPUB created but not emailed"
