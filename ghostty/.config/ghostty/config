@@ -1,0 +1,56 @@
+# Ghostty configuration — mirrors David's VS Code look & feel.
+# Picked up by Ghostty and by Supacode (built on libghostty).
+# Apply: stowed from ~/code/dotfiles/ghostty/.config/ghostty/config
+
+# ── Font (matches VS Code terminal.integrated.fontFamily) ──────────────────
+font-family       = IoskeleyMono Nerd Font
+font-size         = 14
+# Disable ligatures to match editor.fontLigatures = false
+font-feature      = -liga
+font-feature      = -calt
+font-feature      = -dlig
+
+# ── Cursor (matches editor.cursorBlinking = smooth) ────────────────────────
+cursor-style          = block
+cursor-style-blink    = true
+shell-integration-features = cursor
+
+# ── Colors — mirror workbench.colorCustomizations dark overrides ───────────
+# editor.background / terminal.background
+background      = 1f2a36
+foreground      = d4d4d4
+cursor-color    = aeafad
+
+# Selection (VS Code default selection blue)
+selection-background = 264f78
+selection-foreground = ffffff
+
+# ANSI palette — approximates VS Code Dark Modern defaults
+palette = 0=#1f2a36
+palette = 1=#f48771
+palette = 2=#b5cea8
+palette = 3=#dcdcaa
+palette = 4=#569cd6
+palette = 5=#c586c0
+palette = 6=#9cdcfe
+palette = 7=#d4d4d4
+palette = 8=#666666
+palette = 9=#f48771
+palette = 10=#b5cea8
+palette = 11=#dcdcaa
+palette = 12=#569cd6
+palette = 13=#c586c0
+palette = 14=#9cdcfe
+palette = 15=#ffffff
+
+# ── Window chrome ──────────────────────────────────────────────────────────
+window-padding-x       = 8
+window-padding-y       = 6
+window-padding-balance = true
+macos-titlebar-style   = transparent
+background-opacity     = 1.0
+
+# ── Misc ───────────────────────────────────────────────────────────────────
+copy-on-select        = clipboard
+mouse-hide-while-typing = true
+confirm-close-surface = false

@@ -60,7 +60,8 @@ stow -t ~ zsh
 stow -t ~ git
 stow -t ~ starship
 stow --no-folding -t ~ karabiner
-echo "  ✓ zsh, git, starship, karabiner stowed"
+stow --no-folding -t ~ ghostty
+echo "  ✓ zsh, git, starship, karabiner, ghostty stowed"
 
 # ===========================================
 # 5. Git config (prompt for email)
