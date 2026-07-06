@@ -4,6 +4,19 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "cmux: ⌃T → toggle light/dark theme",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": { "key_code": "t", "modifiers": { "mandatory": ["control"] } },
+                                "to": [{ "shell_command": "/Users/david/code/dotfiles/cmux/cmux-theme-toggle.sh" }],
+                                "conditions": [
+                                    { "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.cmuxterm\\.app$"] }
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         "description": "L⌥ + N/R/S/↑/←/→ → ⌃⌥ + key (VS Code shortcuts)",
                         "manipulators": [
                             {

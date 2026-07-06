@@ -22,6 +22,7 @@ Cmd / Ctrl / Shift   →      unchanged                  → all apps normally
 | **L⌥ (Left Option → Space switching)**        |             |                                |                          |                          |          |
 | L⌥ + 1-9                                      | ⌃1-9        | Switch to Space 1-9            |                          |                          | Karabiner |
 | **⌃ (Control)**                               |             |                                |                          |                          |          |
+| ⌃T                                            | ⌃T          | cmux: toggle light/dark theme  |                          |                          | Karabiner (cmux only), runs `cmux/cmux-theme-toggle.sh` |
 | ⌃↑                                            | ⌃↑          |                                | Table: Row before        |                          |          |
 | ⌃↓                                            | ⌃↓          |                                | Table: Row after         |                          |          |
 | ⌃Tab                                          | ⌃Tab        |                                | Next tab                 |                          |          |
