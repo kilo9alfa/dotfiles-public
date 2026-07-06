@@ -1,58 +1,129 @@
 tap "ngs/tap"
 tap "nikitabobko/tap"
 tap "vicentereig/tap"
+# Official Amazon AWS command-line interface
 brew "awscli"
+# Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
-brew "btop"
-brew "cloudflared"
-brew "dust"
-brew "duti"
-brew "fastfetch"
-brew "fd"
-brew "ffmpeg"
-brew "gh"
-brew "ghostscript"
-brew "git-lfs"
-brew "gitleaks"
-brew "go"
-brew "gum"
-brew "imagemagick"
-brew "kubernetes-cli"
-brew "libpq"
-brew "mas"
-brew "mise"
+# Open-source, cross-platform JavaScript runtime environment
 brew "node"
+# Secure and free password manager for all of your devices
+brew "bitwarden-cli"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
+# Cloudflare Tunnel client (formerly Argo Tunnel)
+brew "cloudflared"
+# More intuitive version of du in rust
+brew "dust"
+# Select default apps for documents and URL schemes on macOS
+brew "duti"
+# Like neofetch, but much faster because written mostly in C
+brew "fastfetch"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# Play, record, convert, and stream select audio and video codecs
+brew "ffmpeg"
+# GitHub command-line tool
+brew "gh"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
+# Git extension for versioning large files
+brew "git-lfs"
+# Audit git repos for secrets
+brew "gitleaks"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
+# Tool for glamorous shell scripts
+brew "gum"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
+# Kubernetes command-line interface
+brew "kubernetes-cli"
+# Postgres C API library
+brew "libpq"
+# Mac App Store command-line interface
+brew "mas"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Parser generator tool — required by nvim-treesitter 'main' branch to build parsers
+brew "tree-sitter-cli"
+# C library to read whole-slide images (a.k.a. virtual slides)
 brew "openslide"
+# Swiss-army knife of markup format conversion
 brew "pandoc"
+# Ruby version manager
 brew "rbenv"
-brew "ruby"
+# Rsync for cloud storage
+brew "rclone"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Powerful, clean, object-oriented scripting language
+brew "ruby", link: false
+# SOund eXchange: universal sound sample translator
 brew "sox"
+# Cross-shell prompt for astronauts
 brew "starship"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# Change macOS audio source from the command-line
 brew "switchaudio-osx"
+# General purpose fuzzy finder TUI
 brew "television"
+# Tool to build, change, and version infrastructure
 brew "terraform"
+# Thin wrapper for Terraform e.g. for locking state
 brew "terragrunt", link: false
+# Terragrunt version manager inspired by tfenv
 brew "tgenv"
+# Terminal multiplexer
 brew "tmux"
+# CLI tool that moves files or folder to the trash
 brew "trash"
+# Markup-based typesetting system
 brew "typst"
+# Image processing library
 brew "vips"
+# Generate your Xcode project from a spec file and your folder structure
 brew "xcodegen"
+# Feature-rich command-line audio/video downloader
+brew "yt-dlp"
+# Shell extension to navigate your filesystem faster
 brew "zoxide"
-brew "ngs/tap/google-mcp-server"
-brew "vicentereig/tap/whatsapp-cli"
+# AeroSpace is an i3-like tiling window manager for macOS
 cask "nikitabobko/tap/aerospace"
+# Desktop password and login vault
+cask "bitwarden"
+# Virtual Audio Driver
 cask "blackhole-2ch"
 cask "font-comfortaa"
-cask "font-ioskeley-mono"
 cask "font-jetbrains-mono"
 cask "font-meslo-lg-nerd-font"
+# Keyboard customiser
 cask "karabiner-elements"
+# Clipboard manager
 cask "maccy"
+# Native terminal coding agents command center
+cask "supacode"
+# Mesh VPN based on WireGuard
+cask "tailscale-app"
+# VPN client for secure internet access and private browsing
 cask "windscribe"
+# Mesh VPN client
 cask "zerotier-one"
 mas "Hyper Cursor", id: 1634220679
 mas "Kindle", id: 302584613
+mas "NordPass® Password Manager & Digital Vault", id: 6443917910
 mas "Xcode", id: 497799835
 cargo "worker-build"
+uv "mcp-google-sheets"
+npm "@anthropic-ai/claude-code"
+npm "@google/clasp"
+npm "@hackmd/hackmd-cli"
+npm "@mermaid-js/mermaid-cli"
+npm "claude-mermaid"
+npm "defuddle"
+npm "google-drive-mcp"
+npm "typescript"
+npm "wrangler"
