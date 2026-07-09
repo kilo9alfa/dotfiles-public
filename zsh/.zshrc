@@ -73,6 +73,54 @@ alias reload="source ~/.zshrc"
 alias clr="clear"
 alias cpwd='pwd | pbcopy'
 
+# Docs vault — rebuild ~/code/_docs symlinks to repo docs / CLAUDE.md / .claude
+#   updatedocs            rebuild all repos (default)
+#   updatedocs -all       rebuild all repos
+#   updatedocs -repo NAME rebuild one repo
+updatedocs() { ~/code/_docs/link-repos.sh "$@"; }
+
+# cmux + neovim — open a file for editing in a new split pane beside the terminal.
+#   cn <file>
+# Markdown/mdx also gets a live cmux preview split (edit│preview, Obsidian-style);
+# code files open in the editor split alone. Outside cmux, falls back to plain nvim.
+cn() {
+    emulate -L zsh
+    local f="$1"
+    if [[ -z "$f" ]]; then
+        print -u2 "usage: cn <file>"; return 1
+    fi
+    local abs="${f:A}"                       # absolute path — robust across panes/cwd
+
+    # Not inside cmux (or no cmux CLI)? Just edit right here.
+    if [[ -z "$CMUX_SURFACE_ID" ]] || ! command -v cmux >/dev/null; then
+        command nvim "$abs"; return
+    fi
+
+    local uuid='[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}'
+
+    # Editor pane to the right, focused so you land in nvim.
+    local eid
+    eid=$(cmux new-split right --focus true --id-format uuids 2>/dev/null | grep -oE "$uuid" | head -1)
+    if [[ -z "$eid" ]]; then
+        print -u2 "cn: could not create cmux split — editing here instead"
+        command nvim "$abs"; return
+    fi
+    cmux send --surface "$eid" "nvim ${(q)abs}\n"
+
+    # Markdown → add a live cmux preview split beside the editor.
+    case "${f:e:l}" in
+        md|markdown|mdx)
+            [[ -f "$abs" ]] || return   # nothing to preview for a not-yet-created file
+            local pid
+            pid=$(cmux new-split right --surface "$eid" --focus false --id-format uuids 2>/dev/null | grep -oE "$uuid" | head -1)
+            if [[ -n "$pid" ]]; then
+                cmux open "$abs" --surface "$pid" --no-focus >/dev/null 2>&1
+                cmux close-surface --surface "$pid" >/dev/null 2>&1   # drop the placeholder shell behind the preview
+            fi
+            ;;
+    esac
+}
+
 # Claude Code
 clauded() {
     export CLAUDE_CODE_NO_FLICKER=1
@@ -144,6 +192,26 @@ clauded() {
     fi
 }
 
+# nucclauded — run Nuclaw's clauded inside tmux, survives SSH drops.
+# Usage:
+#   nucclauded <project> [clauded-args...]    e.g. nucclauded localr5
+#                                                 nucclauded investingwithclaude id:abc-123
+# Reattach later: ssh -t r5c-1 'tmux a -t <project>'
+nucclauded() {
+    if [ -z "$1" ]; then
+        echo "usage: nucclauded <project> [clauded args...]" >&2
+        echo "  reattach: ssh -t r5c-1 'tmux a -t <project>'" >&2
+        return 1
+    fi
+    local project="$1"; shift
+    ssh -t r5c-1 "tmux new -A -s '$project' \"bash -lic 'cd ~/code/$project && clauded $*'\""
+}
+
+# nlr5 — force-reattach the localr5 tmux session on Nuclaw, kicking any other client.
+nlr5() {
+    ssh -t r5c-1 'tmux attach -d -t localr5'
+}
+
 # ===========================================
 # Development Environments
 # ===========================================
@@ -171,3 +239,7 @@ export NVM_DIR="$HOME/.nvm"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Vaultwarden (bw) session — auto-loaded so bw get password works without re-unlocking
+# Same pattern as Nuclaw ~/.bashrc. Revoke: bw logout && rm ~/.config/bw-session
+[ -r "$HOME/.config/bw-session" ] && export BW_SESSION="$(cat "$HOME/.config/bw-session")"
