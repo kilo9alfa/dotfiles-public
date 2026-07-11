@@ -9,16 +9,6 @@
       "key": "D"
     }
   ],
-  "editor:fold-all": [
-    {
-      "modifiers": [
-        "Alt",
-        "Ctrl",
-        "Mod"
-      ],
-      "key": "F"
-    }
-  ],
   "obsidian-collapse-all-plugin:collapse-file-explorer": [
     {
       "modifiers": [
@@ -227,14 +217,6 @@
       "key": "I"
     }
   ],
-  "copy-as-html:copy-as-html-command": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "F"
-    }
-  ],
   "workspace:next-tab": [
     {
       "modifiers": [
@@ -314,14 +296,6 @@
       "key": "/"
     }
   ],
-  "workspace:copy-full-path": [
-    {
-      "modifiers": [
-        "Alt"
-      ],
-      "key": "'"
-    }
-  ],
   "app:go-back": [
     {
       "modifiers": [
@@ -347,6 +321,73 @@
         "Ctrl"
       ],
       "key": "ArrowUp"
+    }
+  ],
+  "obsidian-folder-focus-mode:folder-focus-mode-toggle-autofocus": [
+    {
+      "modifiers": [
+        "Ctrl"
+      ],
+      "key": "F"
+    }
+  ],
+  "command-palette:open": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "P"
+    }
+  ],
+  "workspace:copy-path": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "="
+    }
+  ],
+  "workspace:copy-full-path": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "'"
+    }
+  ],
+  "obsidian-kanban:toggle-kanban-view": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "K"
+    }
+  ],
+  "workspace:open-in-new-window": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "ArrowUp"
+    }
+  ],
+  "workspace:split-horizontal": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "ArrowDown"
+    }
+  ],
+  "creases:toggle-fold-heading-level-2": [
+    {
+      "modifiers": [
+        "Alt",
+        "Ctrl",
+        "Mod"
+      ],
+      "key": "F"
     }
   ]
 }

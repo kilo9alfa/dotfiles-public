@@ -32,9 +32,13 @@
   "remove-html-tag",
   "obsidian-shellcommands",
   "chatmd-custom",
-  "git-folder-sync",
   "obsidian-paste-image-rename",
   "vscode-editor",
+  "obsidian-folder-focus-mode",
   "hidden-folders-access",
-  "codeblock-customizer"
+  "codeblock-customizer",
+  "custom-sort",
+  "obsidian-kanban",
+  "obsidian-dynamic-highlights",
+  "creases"
 ]
