@@ -51,6 +51,13 @@ if command -v bat >/dev/null; then
     alias cat="bat --style=auto"
 fi
 
+# Markdown preview: live-render a file with glow, refreshing on save
+# (e.g. Ctrl-S in micro). Pair with a cmux split. glow -s auto matches the
+# current light/dark terminal background.
+if command -v glow >/dev/null && command -v entr >/dev/null; then
+    mdview() { ls "$1" | entr -c glow -s auto "$1"; }
+fi
+
 # Navigation
 cx() { cd "$@" && ls; }
 alias ..="cd .."
