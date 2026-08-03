@@ -1,4 +1,0 @@
-/* Dark theme: match cmux/Ghostty dpx-dark foreground (#d4d4d4) for clearer body text */
-.theme-dark {
-  --text-normal: #d4d4d4;
-}

@@ -1,0 +1,18 @@
+/* Enhance bold text: thicker; darker blue on light theme, lighter blue (#4a9eff,
+   same as file-explorer .md links) on dark theme */
+strong,
+b,
+.cm-strong,
+.markdown-preview-view strong,
+.cm-s-obsidian .cm-strong {
+  font-weight: 900;
+  color: #1e3a8a;
+}
+
+.theme-dark strong,
+.theme-dark b,
+.theme-dark .cm-strong,
+.theme-dark .markdown-preview-view strong,
+.theme-dark .cm-s-obsidian .cm-strong {
+  color: #4a9eff;
+}
