@@ -60,3 +60,13 @@
     background: none !important;
   }
 }
+
+/* Remove highlight on the cell/line being edited in Live Preview tables */
+.cm-table-widget .table-cell-wrapper,
+.cm-table-widget .table-cell-wrapper.is-active,
+.cm-table-widget td.is-editing,
+.cm-table-widget .cm-active,
+.cm-table-widget .cm-line.cm-active {
+  background: transparent !important;
+  background-color: transparent !important;
+}
