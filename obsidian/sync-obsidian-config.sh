@@ -1,17 +1,20 @@
 #!/bin/bash
 # Sync Obsidian config from master vault (DPx) to other vaults
 # Usage: ./sync-obsidian-config.sh
+#
+# Vault-specific exceptions preserved in targets:
+#   - appearance.json baseFontSize (each vault has its own font size)
+#   - git-folder-sync in community-plugins.json (disabled in DPx only)
 
 set -euo pipefail
 
-MASTER_VAULT="/Users/david/Library/Mobile Documents/iCloud~md~obsidian/Documents/DPx"
+MASTER_VAULT="/Users/david/Library/Mobile Documents/iCloud~md~obsidian/Documents/dpx"
 MASTER_OBSIDIAN="$MASTER_VAULT/.obsidian"
 
 # List of vaults to sync TO (add your other vaults here)
 TARGET_VAULTS=(
     "/Users/david/Library/Mobile Documents/iCloud~md~obsidian/Documents/DavidMasterFile"
-    # Add more vaults as needed:
-    # "/path/to/another/vault"
+    "/Users/david/Library/Mobile Documents/iCloud~md~obsidian/Documents/The reading challenge"
 )
 
 # Files to sync (excluding workspace.json which is session-specific)
@@ -29,11 +32,29 @@ for vault in "${TARGET_VAULTS[@]}"; do
     if [[ -d "$vault/.obsidian" ]]; then
         echo "  → Syncing to: $(basename "$vault")"
 
+        # Remember vault-specific values before overwriting
+        font_size=$(jq -r '.baseFontSize // empty' "$vault/.obsidian/appearance.json" 2>/dev/null || true)
+        had_gfs=$(jq -r 'index("git-folder-sync") != null' "$vault/.obsidian/community-plugins.json" 2>/dev/null || echo false)
+
         for file in "${SYNC_FILES[@]}"; do
             if [[ -f "$MASTER_OBSIDIAN/$file" ]]; then
                 cp "$MASTER_OBSIDIAN/$file" "$vault/.obsidian/$file"
             fi
         done
+
+        # Restore vault-specific font size
+        if [[ -n "$font_size" ]]; then
+            jq --argjson fs "$font_size" '.baseFontSize = $fs' \
+                "$vault/.obsidian/appearance.json" > "$vault/.obsidian/appearance.json.tmp" \
+                && mv "$vault/.obsidian/appearance.json.tmp" "$vault/.obsidian/appearance.json"
+        fi
+
+        # Restore git-folder-sync if this vault had it enabled
+        if [[ "$had_gfs" == "true" ]]; then
+            jq '. + ["git-folder-sync"] | unique' \
+                "$vault/.obsidian/community-plugins.json" > "$vault/.obsidian/community-plugins.json.tmp" \
+                && mv "$vault/.obsidian/community-plugins.json.tmp" "$vault/.obsidian/community-plugins.json"
+        fi
 
         # Sync snippets folder
         if [[ -d "$MASTER_OBSIDIAN/snippets" ]]; then
