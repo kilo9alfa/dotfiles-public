@@ -15,6 +15,8 @@ MASTER_OBSIDIAN="$MASTER_VAULT/.obsidian"
 TARGET_VAULTS=(
     "/Users/david/Library/Mobile Documents/iCloud~md~obsidian/Documents/DavidMasterFile"
     "/Users/david/Library/Mobile Documents/iCloud~md~obsidian/Documents/The reading challenge"
+    "/Users/david/code/_docs"
+    "/Users/david/code/inxdb_docs_repo"
 )
 
 # Files to sync (excluding workspace.json which is session-specific)
