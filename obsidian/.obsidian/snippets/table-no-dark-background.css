@@ -70,3 +70,13 @@
   background: transparent !important;
   background-color: transparent !important;
 }
+
+/* Kill occurrence highlights inside the editor (selection-match + search-match)
+   — every copy of the selected/searched text gets a blue box otherwise */
+.markdown-source-view .cm-selectionMatch,
+.cm-table-widget .cm-selectionMatch,
+.markdown-source-view .cm-searchMatch,
+.cm-table-widget .cm-searchMatch {
+  background: transparent !important;
+  background-color: transparent !important;
+}
