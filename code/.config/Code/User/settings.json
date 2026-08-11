@@ -24,7 +24,7 @@
     "editor.find.addExtraSpaceOnTop": false,
     "notebook.output.wordWrap": true,
     "editor.defaultFormatter": "ms-python.vscode-python-envs",
-    "editor.fontFamily": "IoskeleyMono, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "IoskeleyMono Nerd Font, Menlo, Monaco, 'Courier New', monospace",
     "editor.fontWeight": "normal",
     "editor.fontLigatures": false,
     "telemetry.editStats.enabled": false,
