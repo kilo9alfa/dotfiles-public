@@ -8,6 +8,7 @@ Single source of truth for all custom keyboard shortcuts.
 Physical key press          What the system sees         Who responds
 ─────────────────           ────────────────────         ────────────
 L⌥ + N/R/S/↑/←/→    →      ⌃⌥ + key                   → VS Code (specific keys only)
+⌃⌥N (pressed directly) →    ⌃⌥N                       → cmux: mirror remote tmux (not in VS Code)
 L⌥ + 1-9             →      ⌃ + 1-9                    → macOS (switch Space)
 R⌥ + key             →      ⌥ + key                    → Obsidian, VS Code, macOS
 Cmd / Ctrl / Shift   →      unchanged                  → all apps normally
@@ -47,7 +48,7 @@ Cmd / Ctrl / Shift   →      unchanged                  → all apps normally
 | **⌥⇧ (Right Option + Shift)**                 |             |                                |                          |                          |          |
 | ⌥⇧I                                           | ⌥⇧I         |                                | Shell command (shift)    |                          |          |
 | **⌃⌥ (Control + Option)**                      |             |                                |                          |                          |          |
-| ⌃⌥N                                            | ⌃⌥N         |                                |                          | New terminal in editor   |          |
+| ⌃⌥N                                            | ⌃⌥N         | cmux: mirror remote tmux (`ssh-tmux <host>`) |             | New terminal in editor   | Karabiner (all apps **except** VS Code), runs `cmux/cmux-remote-tmux.sh`. Reached via physical ⌃⌥N — L⌥+N still goes to VS Code, since Karabiner does not re-process its own output. |
 | ⌃⌥R                                            | ⌃⌥R         |                                |                          | TAM: Rename terminal     |          |
 | ⌃⌥S                                            | ⌃⌥S         |                                |                          | TAM: Search terminals    |          |
 | **⌥⌘ (Option + Cmd)**                         |             |                                |                          |                          |          |

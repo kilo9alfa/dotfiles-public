@@ -8,10 +8,56 @@
                         "manipulators": [
                             {
                                 "type": "basic",
-                                "from": { "key_code": "t", "modifiers": { "mandatory": ["control"] } },
-                                "to": [{ "shell_command": "/Users/david/code/dotfiles/cmux/cmux-theme-toggle.sh" }],
+                                "from": {
+                                    "key_code": "t",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "/Users/david/code/dotfiles/cmux/cmux-theme-toggle.sh"
+                                    }
+                                ],
                                 "conditions": [
-                                    { "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.cmuxterm\\.app$"] }
+                                    {
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": [
+                                            "^com\\.cmuxterm\\.app$"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "cmux: ⌃⌥N → ssh-tmux remote host, except in VS Code",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "n",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "control",
+                                            "option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "/Users/david/code/dotfiles/cmux/cmux-remote-tmux.sh"
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_unless",
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.VSCode$"
+                                        ]
+                                    }
                                 ]
                             }
                         ]
@@ -21,33 +67,123 @@
                         "manipulators": [
                             {
                                 "type": "basic",
-                                "from": { "key_code": "n", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "n", "modifiers": ["left_control", "left_option"] }]
+                                "from": {
+                                    "key_code": "n",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "n",
+                                        "modifiers": [
+                                            "left_control",
+                                            "left_option"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "r", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "r", "modifiers": ["left_control", "left_option"] }]
+                                "from": {
+                                    "key_code": "r",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "r",
+                                        "modifiers": [
+                                            "left_control",
+                                            "left_option"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "s", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "s", "modifiers": ["left_control", "left_option"] }]
+                                "from": {
+                                    "key_code": "s",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "s",
+                                        "modifiers": [
+                                            "left_control",
+                                            "left_option"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "up_arrow", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "up_arrow", "modifiers": ["left_control", "left_option"] }]
+                                "from": {
+                                    "key_code": "up_arrow",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "up_arrow",
+                                        "modifiers": [
+                                            "left_control",
+                                            "left_option"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "left_arrow", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "left_arrow", "modifiers": ["left_control", "left_option"] }]
+                                "from": {
+                                    "key_code": "left_arrow",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": [
+                                            "left_control",
+                                            "left_option"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "right_arrow", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "right_arrow", "modifiers": ["left_control", "left_option"] }]
+                                "from": {
+                                    "key_code": "right_arrow",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": [
+                                            "left_control",
+                                            "left_option"
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -56,48 +192,174 @@
                         "manipulators": [
                             {
                                 "type": "basic",
-                                "from": { "key_code": "1", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "1", "modifiers": ["left_control"] }]
+                                "from": {
+                                    "key_code": "1",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "1",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "2", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "2", "modifiers": ["left_control"] }]
+                                "from": {
+                                    "key_code": "2",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "2",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "3", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "3", "modifiers": ["left_control"] }]
+                                "from": {
+                                    "key_code": "3",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "3",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "4", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "4", "modifiers": ["left_control"] }]
+                                "from": {
+                                    "key_code": "4",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "4",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "5", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "5", "modifiers": ["left_control"] }]
+                                "from": {
+                                    "key_code": "5",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "5",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "6", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "6", "modifiers": ["left_control"] }]
+                                "from": {
+                                    "key_code": "6",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "6",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "7", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "7", "modifiers": ["left_control"] }]
+                                "from": {
+                                    "key_code": "7",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "7",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "8", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "8", "modifiers": ["left_control"] }]
+                                "from": {
+                                    "key_code": "8",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "8",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ]
                             },
                             {
                                 "type": "basic",
-                                "from": { "key_code": "9", "modifiers": { "mandatory": ["left_option"] } },
-                                "to": [{ "key_code": "9", "modifiers": ["left_control"] }]
+                                "from": {
+                                    "key_code": "9",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_option"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "9",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -109,19 +371,26 @@
                                 "from": {
                                     "key_code": "hyphen",
                                     "modifiers": {
-                                        "mandatory": ["right_option"]
+                                        "mandatory": [
+                                            "right_option"
+                                        ]
                                     }
                                 },
                                 "to": [
                                     {
                                         "key_code": "c",
-                                        "modifiers": ["left_option", "left_command"]
+                                        "modifiers": [
+                                            "left_option",
+                                            "left_command"
+                                        ]
                                     }
                                 ],
                                 "conditions": [
                                     {
                                         "type": "frontmost_application_if",
-                                        "bundle_identifiers": ["^com\\.apple\\.finder$"]
+                                        "bundle_identifiers": [
+                                            "^com\\.apple\\.finder$"
+                                        ]
                                     }
                                 ]
                             }
@@ -131,7 +400,9 @@
             },
             "name": "Default profile",
             "selected": true,
-            "virtual_hid_keyboard": { "keyboard_type_v2": "iso" }
+            "virtual_hid_keyboard": {
+                "keyboard_type_v2": "iso"
+            }
         }
     ]
 }
