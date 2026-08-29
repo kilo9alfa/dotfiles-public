@@ -8,7 +8,7 @@ Single source of truth for all custom keyboard shortcuts.
 Physical key press          What the system sees         Who responds
 ─────────────────           ────────────────────         ────────────
 L⌥ + N/R/S/↑/←/→    →      ⌃⌥ + key                   → VS Code (specific keys only)
-⌃⌥N (pressed directly) →    ⌃⌥N                       → cmux: mirror remote tmux (not in VS Code)
+⌃⌥N (pressed directly) →    ⌃⌥N                       → cmux: mirror Nuclaw tmux (not in VS Code)
 L⌥ + 1-9             →      ⌃ + 1-9                    → macOS (switch Space)
 R⌥ + key             →      ⌥ + key                    → Obsidian, VS Code, macOS
 Cmd / Ctrl / Shift   →      unchanged                  → all apps normally
@@ -48,7 +48,7 @@ Cmd / Ctrl / Shift   →      unchanged                  → all apps normally
 | **⌥⇧ (Right Option + Shift)**                 |             |                                |                          |                          |          |
 | ⌥⇧I                                           | ⌥⇧I         |                                | Shell command (shift)    |                          |          |
 | **⌃⌥ (Control + Option)**                      |             |                                |                          |                          |          |
-| ⌃⌥N                                            | ⌃⌥N         | cmux: mirror remote tmux (`ssh-tmux <host>`) |             | New terminal in editor   | Karabiner (all apps **except** VS Code), runs `cmux/cmux-remote-tmux.sh`. Reached via physical ⌃⌥N — L⌥+N still goes to VS Code, since Karabiner does not re-process its own output. |
+| ⌃⌥N                                            | ⌃⌥N         | cmux: mirror Nuclaw tmux (`ssh-tmux r5c-1`) |             | New terminal in editor   | Karabiner (all apps **except** VS Code), runs `cmux/cmux-nuclaw.sh`. Reached via physical ⌃⌥N — L⌥+N still goes to VS Code, since Karabiner does not re-process its own output. |
 | ⌃⌥R                                            | ⌃⌥R         |                                |                          | TAM: Rename terminal     |          |
 | ⌃⌥S                                            | ⌃⌥S         |                                |                          | TAM: Search terminals    |          |
 | **⌥⌘ (Option + Cmd)**                         |             |                                |                          |                          |          |
@@ -93,6 +93,12 @@ Cmd / Ctrl / Shift   →      unchanged                  → all apps normally
 | code_menu | VS Code | /logissue, /getstatus, /logtask |
 | obsidian_menu | Obsidian | C2O operations, tree operations |
 
+## Claude Code slash commands (no keyboard shortcut)
+
+| Command | Does | Notes |
+|---------|------|-------|
+| `/rn <name>` | Renames the cmux **tab**, the cmux **workspace** (group) and the **Claude session** to `<name>`, all in one go | cmux only. Runs `cmux rename-tab` + `cmux workspace rename`, then types `/rename <name>` back into the terminal via `cmux send`. Lives in `claude-personal/commands/rn.md`, symlinked to `~/.claude/commands/rn.md` |
+
 ## Source files
 
 | Tool | Config file |
@@ -102,3 +108,4 @@ Cmd / Ctrl / Shift   →      unchanged                  → all apps normally
 | VS Code | `code/.config/Code/User/keybindings.json` |
 | BTT | `btt/*.bttpreset` |
 | macOS | `bootstrap.sh` (defaults write) |
+| Claude Code commands | `~/code/claude-personal/commands/` (symlinked into `~/.claude/commands/`) |
