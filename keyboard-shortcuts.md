@@ -93,6 +93,40 @@ Cmd / Ctrl / Shift   →      unchanged                  → all apps normally
 | code_menu | VS Code | /logissue, /getstatus, /logtask |
 | obsidian_menu | Obsidian | C2O operations, tree operations |
 
+## nvim (Neovim)
+
+Leader key is `Space`. Press `Space` alone and wait — which-key lists everything. These are the **custom** mappings only; for built-in vim keys (`dd`, `cw`, `/`, `.` …) see the full cheatsheet: `nvim/cheatsheet.html` — open with `cmux browser open file://$HOME/code/dotfiles/nvim/cheatsheet.html`.
+
+| Key | Does | From |
+|-----|------|------|
+| `Space` `w` / `q` | Save / quit | `lua/keymaps.lua` |
+| `Ctrl` `h` `j` `k` `l` | Move between splits | `lua/keymaps.lua` |
+| `Esc` | Clear search highlight | `lua/keymaps.lua` |
+| `<` / `>` (visual) | Indent left / right and keep selection | `lua/keymaps.lua` |
+| `Space` `ff` / `fg` | Find files / search text in project | telescope |
+| `Space` `fb` / `fr` / `fh` | Buffers / recent files / help | telescope |
+| `Space` `z` | Zen mode | snacks |
+| `Space` `mi` | Preview image under cursor | snacks |
+| `Space` `oo` / `os` / `oq` | Obsidian: open in app / search vault / quick switch | obsidian.nvim |
+| `Space` `on` / `od` / `oy` | Obsidian: new note / today / yesterday | obsidian.nvim |
+| `Space` `ob` / `ot` / `op` | Obsidian: backlinks / tags / paste image | obsidian.nvim |
+| `Space` `ol` (visual) | Obsidian: link selection | obsidian.nvim |
+
+### LSP — only active in files a language server attaches to
+
+| Key | Does |
+|-----|------|
+| `gd` or `F12` | Go to definition (`F12` mirrors VS Code) |
+| `Ctrl` `o` | Jump back after `gd` (built-in) |
+| `K` | Show type / docs under cursor |
+| `gr` / `gi` / `gD` | References / implementation / declaration |
+| `Space` `rn` | Rename symbol everywhere |
+| `Space` `ca` | Code action |
+| `Space` `e` | Show full diagnostic under cursor |
+| `[d` / `]d` | Previous / next diagnostic |
+
+TypeScript uses `tsc --lsp` (TypeScript 7's native server) from the project's own `node_modules`. Older projects need `ts_ls` uncommented in `lua/plugins/lsp.lua`.
+
 ## Claude Code slash commands (no keyboard shortcut)
 
 | Command | Does | Notes |
@@ -108,4 +142,5 @@ Cmd / Ctrl / Shift   →      unchanged                  → all apps normally
 | VS Code | `code/.config/Code/User/keybindings.json` |
 | BTT | `btt/*.bttpreset` |
 | macOS | `bootstrap.sh` (defaults write) |
+| nvim | `nvim/.config/nvim/lua/keymaps.lua` + `lua/plugins/*.lua` |
 | Claude Code commands | `~/code/claude-personal/commands/` (symlinked into `~/.claude/commands/`) |
