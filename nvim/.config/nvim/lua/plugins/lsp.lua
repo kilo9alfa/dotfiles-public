@@ -10,16 +10,23 @@
 -- command to run, which filetypes, how to find the project root) as `lsp/*.lua`
 -- files. We pick the ones we want with `vim.lsp.enable`.
 --
--- Servers must be installed separately, on PATH:
---   ts_ls -> npm i -g typescript-language-server
+-- Servers:
+--   tsc    -> TypeScript 7's own native server (`tsc --lsp`). Comes from the
+--             project's own `node_modules`, so it always matches the exact
+--             TypeScript version the project compiles with. Nothing to install
+--             globally. Requires TS >= 7.0 in the project.
+--   ts_ls  -> the older wrapper around tsserver, for projects still on TS 5/6.
+--             `npm i -g typescript-language-server`. Left disabled below;
+--             enable it if you open a pre-TS7 project.
 return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      -- Turn on the servers we have installed. Add more names here as you
-      -- install them (e.g. "lua_ls" after `brew install lua-language-server`).
-      vim.lsp.enable({ "ts_ls" })
+      -- Turn on the servers we want. Add more names here as you install them
+      -- (e.g. "lua_ls" after `brew install lua-language-server`).
+      vim.lsp.enable({ "tsc" })
+      -- vim.lsp.enable({ "ts_ls" })  -- swap in for projects on TypeScript 5/6
 
       -- How errors and warnings are shown.
       vim.diagnostic.config({
