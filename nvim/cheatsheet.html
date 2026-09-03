@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nvim cheatsheet</title>
+<style>
+  :root {
+    --bg: #f6f6f4;
+    --card: #ffffff;
+    --ink: #1c1c1a;
+    --muted: #6b6b66;
+    --line: #e2e2dd;
+    --accent: #2f6f4e;
+    --accent-soft: #e6f0ea;
+    --key-bg: #f0f0ec;
+    --key-line: #cfcfc8;
+    --warn: #9a5b12;
+    --mono: "IoskeleyMono Nerd Font", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16181c;
+      --card: #1e2126;
+      --ink: #e6e6e1;
+      --muted: #969ba3;
+      --line: #2c3037;
+      --accent: #7fd1a3;
+      --accent-soft: #1d2a24;
+      --key-bg: #262b32;
+      --key-line: #3a4048;
+      --warn: #e0a45e;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 24px;
+    display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  }
+  header h1 {
+    margin: 0; font-size: 17px; font-weight: 650; letter-spacing: -0.01em;
+    font-family: var(--mono);
+  }
+  header .sub { color: var(--muted); font-size: 13px; flex: 1; min-width: 180px; }
+  #filter {
+    font: inherit; font-family: var(--mono); font-size: 13px;
+    padding: 7px 11px; width: 240px;
+    border: 1px solid var(--line); border-radius: 7px;
+    background: var(--card); color: var(--ink);
+  }
+  #filter:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+  main { padding: 24px; max-width: 1500px; margin: 0 auto; }
+
+  .lede {
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+    border-radius: 10px; padding: 16px 18px; margin: 0 0 24px;
+    max-width: 760px;
+  }
+  .lede p { margin: 0 0 8px; }
+  .lede p:last-child { margin-bottom: 0; }
+  .lede strong { color: var(--accent); }
+
+  .grid { columns: 400px; column-gap: 18px; }
+  section {
+    break-inside: avoid; page-break-inside: avoid;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 14px 16px 6px; margin: 0 0 18px;
+    display: inline-block; width: 100%;
+  }
+  section h2 {
+    margin: 0 0 10px; font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.09em; color: var(--accent);
+  }
+  section h2 .note { text-transform: none; letter-spacing: 0; color: var(--muted); font-weight: 500; }
+  table { width: 100%; border-collapse: collapse; }
+  tr { border-bottom: 1px solid var(--line); }
+  tr:last-child { border-bottom: 0; }
+  td { padding: 6px 0; vertical-align: baseline; }
+  td.k { width: 40%; padding-right: 12px; white-space: nowrap; }
+  td.d { color: var(--ink); }
+  td.d em { color: var(--muted); font-style: normal; font-size: 13px; }
+
+  kbd {
+    display: inline-block; font-family: var(--mono); font-size: 12.5px;
+    background: var(--key-bg); border: 1px solid var(--key-line);
+    border-bottom-width: 2px; border-radius: 5px;
+    padding: 1px 6px; margin-right: 2px; color: var(--ink); white-space: nowrap;
+  }
+  kbd.wide { letter-spacing: 0.02em; }
+  .star { color: var(--warn); font-weight: 700; margin-left: 4px; }
+
+  footer {
+    margin: 8px 24px 40px; color: var(--muted); font-size: 13px; max-width: 760px;
+  }
+  footer code {
+    font-family: var(--mono); background: var(--key-bg);
+    padding: 1px 5px; border-radius: 4px; font-size: 12.5px;
+  }
+  .hidden { display: none !important; }
+  #empty { color: var(--muted); padding: 30px 0; display: none; }
+
+  @media print {
+    header { position: static; } #filter, .no-print { display: none; }
+    body { background: #fff; } section { border-color: #ccc; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>nvim cheatsheet</h1>
+  <span class="sub">David&rsquo;s setup &middot; leader is <kbd>Space</kbd></span>
+  <input id="filter" type="search" placeholder="filter…  (press /)" autocomplete="off" spellcheck="false">
+</header>
+
+<main>
+
+<div class="lede no-print">
+  <p><strong>The one concept:</strong> nvim has <em>modes</em>. In <strong>Normal</strong> mode, letters are commands, not text. That is the entire learning curve.</p>
+  <p><kbd>Esc</kbd> always returns to Normal &mdash; press it whenever you are lost. Press <kbd>Space</kbd> alone and wait: a menu of every custom command pops up.</p>
+</div>
+
+<div class="grid">
+
+  <section>
+    <h2>Modes</h2>
+    <table>
+      <tr><td class="k"><kbd>Esc</kbd></td><td class="d"><strong>Normal</strong> &mdash; moving &amp; commands. You start here <em>&mdash; your panic button</em></td></tr>
+      <tr><td class="k"><kbd>i</kbd></td><td class="d"><strong>Insert</strong> &mdash; actually typing text</td></tr>
+      <tr><td class="k"><kbd>v</kbd></td><td class="d"><strong>Visual</strong> &mdash; selecting text</td></tr>
+      <tr><td class="k"><kbd>:</kbd></td><td class="d"><strong>Command</strong> &mdash; save, quit, replace</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Survival <span class="note">&mdash; learn these six first</span></h2>
+    <table>
+      <tr><td class="k"><kbd>Esc</kbd></td><td class="d">Back to Normal mode<span class="star">★</span></td></tr>
+      <tr><td class="k"><kbd>i</kbd></td><td class="d">Start typing</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>w</kbd></td><td class="d">Save <em>(your custom key)</em></td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>q</kbd></td><td class="d">Quit <em>(your custom key)</em></td></tr>
+      <tr><td class="k"><kbd class="wide">:q!</kbd><kbd>Enter</kbd></td><td class="d">Quit, throw away changes</td></tr>
+      <tr><td class="k"><kbd>u</kbd> / <kbd>Ctrl-r</kbd></td><td class="d">Undo / redo</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Moving <span class="note">&mdash; Normal mode</span></h2>
+    <table>
+      <tr><td class="k"><kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd></td><td class="d">left, down, up, right <em>(arrows work too)</em></td></tr>
+      <tr><td class="k"><kbd>w</kbd> / <kbd>b</kbd></td><td class="d">Forward / back one word</td></tr>
+      <tr><td class="k"><kbd>0</kbd> / <kbd>$</kbd></td><td class="d">Start / end of line</td></tr>
+      <tr><td class="k"><kbd>gg</kbd> / <kbd>G</kbd></td><td class="d">Top / bottom of file</td></tr>
+      <tr><td class="k"><kbd>42G</kbd></td><td class="d">Go to line 42</td></tr>
+      <tr><td class="k"><kbd>Ctrl-d</kbd> / <kbd>Ctrl-u</kbd></td><td class="d">Half page down / up</td></tr>
+      <tr><td class="k"><kbd>%</kbd></td><td class="d">Jump to matching bracket</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Editing</h2>
+    <table>
+      <tr><td class="k"><kbd>x</kbd></td><td class="d">Delete one character</td></tr>
+      <tr><td class="k"><kbd>dd</kbd></td><td class="d">Delete line <em>(<kbd>3dd</kbd> = 3 lines)</em></td></tr>
+      <tr><td class="k"><kbd>yy</kbd> &middot; <kbd>p</kbd> / <kbd>P</kbd></td><td class="d">Copy line &middot; paste after / before</td></tr>
+      <tr><td class="k"><kbd>cw</kbd></td><td class="d">Change word &mdash; deletes it, drops you in Insert</td></tr>
+      <tr><td class="k"><kbd>o</kbd> / <kbd>O</kbd></td><td class="d">New line below / above, in Insert</td></tr>
+      <tr><td class="k"><kbd>A</kbd> / <kbd>I</kbd></td><td class="d">Insert at end / start of line</td></tr>
+      <tr><td class="k"><kbd>.</kbd></td><td class="d">Repeat last change<span class="star">★</span> <em>the most underrated key</em></td></tr>
+      <tr><td class="k"><kbd>v</kbd> &rarr; move &rarr; <kbd>d</kbd>/<kbd>y</kbd></td><td class="d">Select, then delete / copy</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Search &amp; replace</h2>
+    <table>
+      <tr><td class="k"><kbd>/word</kbd><kbd>Enter</kbd></td><td class="d">Search forward &middot; <kbd>n</kbd> next, <kbd>N</kbd> previous</td></tr>
+      <tr><td class="k"><kbd>*</kbd></td><td class="d">Search for the word under the cursor</td></tr>
+      <tr><td class="k"><kbd class="wide">:%s/old/new/g</kbd></td><td class="d">Replace everywhere in the file</td></tr>
+      <tr><td class="k"><kbd class="wide">:%s/old/new/gc</kbd></td><td class="d">Same, but confirm each one</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Code intelligence <span class="note">&mdash; needs a language server</span></h2>
+    <table>
+      <tr><td class="k"><kbd>gd</kbd> or <kbd>F12</kbd></td><td class="d">Go to definition<span class="star">★</span></td></tr>
+      <tr><td class="k"><kbd>Ctrl-o</kbd></td><td class="d">Jump back where you were<span class="star">★</span> <em>the return trip after <kbd>gd</kbd></em></td></tr>
+      <tr><td class="k"><kbd>K</kbd></td><td class="d">Show type / docs under cursor</td></tr>
+      <tr><td class="k"><kbd>gr</kbd></td><td class="d">Find all references</td></tr>
+      <tr><td class="k"><kbd>gi</kbd> / <kbd>gD</kbd></td><td class="d">Go to implementation / declaration</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>rn</kbd></td><td class="d">Rename symbol everywhere</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>ca</kbd></td><td class="d">Code action (auto-fix, imports)</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>e</kbd></td><td class="d">Show full error under cursor</td></tr>
+      <tr><td class="k"><kbd>[d</kbd> / <kbd>]d</kbd></td><td class="d">Previous / next error</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Files &amp; windows <span class="note">&mdash; telescope</span></h2>
+    <table>
+      <tr><td class="k"><kbd>Space</kbd><kbd>ff</kbd></td><td class="d">Find files by name<span class="star">★</span></td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>fg</kbd></td><td class="d">Search text across the project<span class="star">★</span></td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>fb</kbd></td><td class="d">Open buffers</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>fr</kbd></td><td class="d">Recent files</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>fh</kbd></td><td class="d">Search the help docs</td></tr>
+      <tr><td class="k"><kbd>Ctrl-h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd></td><td class="d">Move between splits</td></tr>
+      <tr><td class="k"><kbd class="wide">:vsplit</kbd> / <kbd class="wide">:split</kbd></td><td class="d">Split window vertically / horizontally</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>z</kbd></td><td class="d">Zen mode (focus)</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Obsidian <span class="note">&mdash; obsidian.nvim</span></h2>
+    <table>
+      <tr><td class="k"><kbd>Space</kbd><kbd>oo</kbd></td><td class="d">Open note in the Obsidian app</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>os</kbd></td><td class="d">Search the vault</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>oq</kbd></td><td class="d">Quick switch note</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>on</kbd></td><td class="d">New note</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>od</kbd> / <kbd>oy</kbd></td><td class="d">Today&rsquo;s / yesterday&rsquo;s daily note</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>ob</kbd></td><td class="d">Backlinks</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>ot</kbd></td><td class="d">Tags</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>op</kbd></td><td class="d">Paste image</td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>ol</kbd></td><td class="d">Link selection <em>(visual mode)</em></td></tr>
+      <tr><td class="k"><kbd>Space</kbd><kbd>mi</kbd></td><td class="d">Preview image under cursor</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>If you get stuck</h2>
+    <table>
+      <tr><td class="k"><kbd>Esc</kbd><kbd>Esc</kbd><kbd class="wide">:q!</kbd><kbd>Enter</kbd></td><td class="d">Gets you out of anything<span class="star">★</span></td></tr>
+      <tr><td class="k"><kbd>Space</kbd> <em>then wait</em></td><td class="d">which-key shows every custom command</td></tr>
+      <tr><td class="k"><kbd class="wide">:Tutor</kbd></td><td class="d">Built-in hands-on tutorial, 25 min<span class="star">★</span></td></tr>
+      <tr><td class="k"><kbd class="wide">:checkhealth</kbd></td><td class="d">Diagnose a broken plugin or server</td></tr>
+      <tr><td class="k"><kbd class="wide">:Lazy</kbd></td><td class="d">Plugin manager &mdash; install, update, view</td></tr>
+      <tr><td class="k"><kbd class="wide">:LspInfo</kbd></td><td class="d">Is a language server attached to this file?</td></tr>
+    </table>
+  </section>
+
+</div>
+
+<p id="empty">Nothing matches that.</p>
+</main>
+
+<footer>
+  Config lives in <code>~/code/dotfiles/nvim/.config/nvim/</code>, symlinked to <code>~/.config/nvim</code>.
+  Code intelligence comes from <code>lua/plugins/lsp.lua</code> &mdash; TypeScript uses <code>tsc --lsp</code> from the
+  project&rsquo;s own <code>node_modules</code>, so it always matches the project&rsquo;s TypeScript version.
+  <span class="star">★</span> marks the ones worth memorising first.
+</footer>
+
+<script>
+  const input = document.getElementById('filter');
+  const rows = [...document.querySelectorAll('tbody tr, table tr')];
+  const sections = [...document.querySelectorAll('section')];
+  const empty = document.getElementById('empty');
+
+  function apply() {
+    const q = input.value.trim().toLowerCase();
+    if (!q) {
+      rows.forEach(r => r.classList.remove('hidden'));
+      sections.forEach(s => s.classList.remove('hidden'));
+      empty.style.display = 'none';
+      return;
+    }
+    rows.forEach(r => r.classList.toggle('hidden', !r.textContent.toLowerCase().includes(q)));
+    let anyVisible = false;
+    sections.forEach(s => {
+      const hit = [...s.querySelectorAll('tr')].some(r => !r.classList.contains('hidden'))
+                  || s.querySelector('h2').textContent.toLowerCase().includes(q);
+      s.classList.toggle('hidden', !hit);
+      if (hit) anyVisible = true;
+    });
+    empty.style.display = anyVisible ? 'none' : 'block';
+  }
+
+  input.addEventListener('input', apply);
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && document.activeElement !== input) { e.preventDefault(); input.focus(); input.select(); }
+    if (e.key === 'Escape' && document.activeElement === input) { input.value = ''; apply(); input.blur(); }
+  });
+</script>
+
+</body>
+</html>
