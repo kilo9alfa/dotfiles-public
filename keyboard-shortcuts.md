@@ -127,6 +127,21 @@ Leader key is `Space`. Press `Space` alone and wait — which-key lists everythi
 
 TypeScript uses `tsc --lsp` (TypeScript 7's native server) from the project's own `node_modules`. Older projects need `ts_ls` uncommented in `lua/plugins/lsp.lua`.
 
+### Git — gitsigns + snacks
+
+| Key | Does |
+|-----|------|
+| `]c` / `[c` | Next / previous change |
+| `Space` `gp` | Preview this change (popup) |
+| `Space` `gd` | Side-by-side diff of this file |
+| `Space` `gr` / `gR` | Undo this change / all changes in file |
+| `Space` `gs` / `gu` | Stage / unstage this change |
+| `Space` `gb` | Toggle line blame |
+| `Space` `gg` | Pick from changed files |
+| `Space` `fe` | File tree sidebar, coloured by git status |
+
+`Space` `fe` rather than `Space` `e` — the LSP's buffer-local `Space` `e` (show diagnostic) would shadow it in any file with a language server.
+
 ## Claude Code slash commands (no keyboard shortcut)
 
 | Command | Does | Notes |
