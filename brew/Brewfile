@@ -124,6 +124,8 @@ cask "windscribe"
 cask "zerotier-one"
 # Menu bar toolkit with keep-awake, system monitor and volume mixer
 cask "vorssaint"
+# Menu bar manager — hides overflow so items stop disappearing under the notch
+cask "jordanbaird-ice"
 mas "Hyper Cursor", id: 1634220679
 mas "Kindle", id: 302584613
 mas "NordPass® Password Manager & Digital Vault", id: 6443917910
