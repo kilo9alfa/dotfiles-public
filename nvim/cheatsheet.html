@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>nvim cheatsheet</title>
+<title>David's Cheatsheet</title>
 <style>
   :root {
     --bg: #f6f6f4;
@@ -16,6 +16,7 @@
     --key-bg: #f0f0ec;
     --key-line: #cfcfc8;
     --warn: #9a5b12;
+    --chip: #eceae4;
     --mono: "IoskeleyMono Nerd Font", ui-monospace, SFMono-Regular, Menlo, monospace;
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   }
@@ -31,47 +32,58 @@
       --key-bg: #262b32;
       --key-line: #3a4048;
       --warn: #e0a45e;
+      --chip: #272c33;
     }
+  }
+  :root[data-theme="dark"] {
+    --bg: #16181c; --card: #1e2126; --ink: #e6e6e1; --muted: #969ba3;
+    --line: #2c3037; --accent: #7fd1a3; --accent-soft: #1d2a24;
+    --key-bg: #262b32; --key-line: #3a4048; --warn: #e0a45e; --chip: #272c33;
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-size: 15px;
-    line-height: 1.5;
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-size: 15px; line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
+
   header {
     position: sticky; top: 0; z-index: 10;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
-    padding: 14px 24px;
-    display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+    padding: 12px 24px 0;
   }
-  header h1 {
-    margin: 0; font-size: 17px; font-weight: 650; letter-spacing: -0.01em;
-    font-family: var(--mono);
-  }
-  header .sub { color: var(--muted); font-size: 13px; flex: 1; min-width: 180px; }
+  .titlebar { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
+  .titlebar h1 { margin: 0; font-size: 17px; font-weight: 650; letter-spacing: -0.01em; font-family: var(--mono); }
+  .titlebar .sub { color: var(--muted); font-size: 13px; flex: 1; min-width: 160px; }
   #filter {
     font: inherit; font-family: var(--mono); font-size: 13px;
-    padding: 7px 11px; width: 240px;
+    padding: 7px 11px; width: 260px;
     border: 1px solid var(--line); border-radius: 7px;
     background: var(--card); color: var(--ink);
   }
   #filter:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
-  main { padding: 24px; max-width: 1500px; margin: 0 auto; }
+
+  nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  nav button {
+    font: inherit; font-size: 13.5px; font-weight: 550;
+    padding: 8px 15px; border: 0; border-bottom: 2px solid transparent;
+    background: none; color: var(--muted); cursor: pointer;
+    border-radius: 7px 7px 0 0;
+  }
+  nav button:hover { color: var(--ink); background: var(--chip); }
+  nav button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); background: none; }
+  nav button .n { font-size: 11px; opacity: .55; margin-left: 5px; font-family: var(--mono); }
+
+  main { padding: 22px 24px 0; max-width: 1600px; margin: 0 auto; }
 
   .lede {
     background: var(--accent-soft);
     border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-    border-radius: 10px; padding: 16px 18px; margin: 0 0 24px;
-    max-width: 760px;
+    border-radius: 10px; padding: 14px 17px; margin: 0 0 20px; max-width: 820px;
   }
-  .lede p { margin: 0 0 8px; }
+  .lede p { margin: 0 0 7px; }
   .lede p:last-child { margin-bottom: 0; }
   .lede strong { color: var(--accent); }
 
@@ -87,247 +99,601 @@
     text-transform: uppercase; letter-spacing: 0.09em; color: var(--accent);
   }
   section h2 .note { text-transform: none; letter-spacing: 0; color: var(--muted); font-weight: 500; }
+  .appchip {
+    display: none; float: right; text-transform: none; letter-spacing: 0;
+    font-size: 10.5px; font-weight: 600; color: var(--muted);
+    background: var(--chip); border-radius: 20px; padding: 2px 9px;
+  }
+  body.searching .appchip { display: inline-block; }
+  body.searching .lede { display: none; }
+
   table { width: 100%; border-collapse: collapse; }
   tr { border-bottom: 1px solid var(--line); }
   tr:last-child { border-bottom: 0; }
   td { padding: 6px 0; vertical-align: baseline; }
-  td.k { width: 40%; padding-right: 12px; white-space: nowrap; }
+  td.k { width: 42%; padding-right: 12px; }
   td.d { color: var(--ink); }
   td.d em { color: var(--muted); font-style: normal; font-size: 13px; }
+  .foot { margin: 10px 0 8px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+  .foot strong { color: var(--ink); }
 
   kbd {
     display: inline-block; font-family: var(--mono); font-size: 12.5px;
     background: var(--key-bg); border: 1px solid var(--key-line);
     border-bottom-width: 2px; border-radius: 5px;
-    padding: 1px 6px; margin-right: 2px; color: var(--ink); white-space: nowrap;
+    padding: 1px 6px; margin: 1px 2px 1px 0; color: var(--ink); white-space: nowrap;
   }
-  kbd.wide { letter-spacing: 0.02em; }
+  code {
+    font-family: var(--mono); font-size: 12.5px;
+    background: var(--key-bg); border-radius: 4px; padding: 1px 5px;
+  }
   .star { color: var(--warn); font-weight: 700; margin-left: 4px; }
 
-  footer {
-    margin: 8px 24px 40px; color: var(--muted); font-size: 13px; max-width: 760px;
-  }
-  footer code {
-    font-family: var(--mono); background: var(--key-bg);
-    padding: 1px 5px; border-radius: 4px; font-size: 12.5px;
-  }
+  footer { margin: 10px 24px 40px; color: var(--muted); font-size: 13px; max-width: 900px; }
   .hidden { display: none !important; }
   #empty { color: var(--muted); padding: 30px 0; display: none; }
 
   @media print {
-    header { position: static; } #filter, .no-print { display: none; }
+    header { position: static; } #filter, nav, .no-print { display: none; }
     body { background: #fff; } section { border-color: #ccc; }
+    .panel { display: block !important; }
+    .appchip { display: inline-block !important; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>nvim cheatsheet</h1>
-  <span class="sub">David&rsquo;s setup &middot; leader is <kbd>Space</kbd></span>
-  <input id="filter" type="search" placeholder="filter…  (press /)" autocomplete="off" spellcheck="false">
+  <div class="titlebar">
+    <h1>cheatsheet</h1>
+    <span class="sub">every keyboard binding on this Mac &middot; <kbd>/</kbd> to search all tabs</span>
+    <input id="filter" type="search" placeholder="search everything…" autocomplete="off" spellcheck="false">
+  </div>
+  <nav id="tabs">
+    <button data-app="nvim" aria-selected="true">nvim</button>
+    <button data-app="obsidian" aria-selected="false">Obsidian</button>
+    <button data-app="terminal" aria-selected="false">Terminal</button>
+    <button data-app="macos" aria-selected="false">macOS</button>
+    <button data-app="vscode" aria-selected="false">VS&nbsp;Code</button>
+    <button data-app="claude" aria-selected="false">Claude&nbsp;Code</button>
+  </nav>
 </header>
 
 <main>
 
-<div class="lede no-print">
-  <p><strong>The one concept:</strong> nvim has <em>modes</em>. In <strong>Normal</strong> mode, letters are commands, not text. That is the entire learning curve.</p>
-  <p><kbd>Esc</kbd> always returns to Normal &mdash; press it whenever you are lost. Press <kbd>Space</kbd> alone and wait: a menu of every custom command pops up.</p>
+<!-- ══════════════════════════════ NVIM ══════════════════════════════ -->
+<div class="panel" data-app="nvim">
+  <div class="lede no-print">
+    <p><strong>The one concept:</strong> nvim has <em>modes</em>. In <strong>Normal</strong> mode, letters are commands, not text. That is the entire learning curve.</p>
+    <p><kbd>Esc</kbd> always returns to Normal &mdash; press it whenever you are lost. Press <kbd>Space</kbd> alone and wait: a menu of every custom command pops up.</p>
+  </div>
+  <div class="grid">
+
+    <section data-app="nvim">
+      <h2>Modes<span class="appchip">nvim</span></h2>
+      <table>
+        <tr><td class="k"><kbd>Esc</kbd></td><td class="d"><strong>Normal</strong> &mdash; moving &amp; commands. You start here <em>&mdash; your panic button</em></td></tr>
+        <tr><td class="k"><kbd>i</kbd></td><td class="d"><strong>Insert</strong> &mdash; actually typing text</td></tr>
+        <tr><td class="k"><kbd>v</kbd></td><td class="d"><strong>Visual</strong> &mdash; selecting text</td></tr>
+        <tr><td class="k"><kbd>:</kbd></td><td class="d"><strong>Command</strong> &mdash; save, quit, replace</td></tr>
+      </table>
+    </section>
+
+    <section data-app="nvim">
+      <h2>Survival <span class="note">&mdash; learn these six first</span><span class="appchip">nvim</span></h2>
+      <table>
+        <tr><td class="k"><kbd>Esc</kbd></td><td class="d">Back to Normal mode<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>i</kbd></td><td class="d">Start typing</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>w</kbd></td><td class="d">Save <em>(your custom key)</em></td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>q</kbd></td><td class="d">Quit <em>(your custom key)</em></td></tr>
+        <tr><td class="k"><kbd>:q!</kbd><kbd>Enter</kbd></td><td class="d">Quit, throw away changes</td></tr>
+        <tr><td class="k"><kbd>u</kbd> / <kbd>Ctrl-r</kbd></td><td class="d">Undo / redo</td></tr>
+      </table>
+    </section>
+
+    <section data-app="nvim">
+      <h2>Moving<span class="appchip">nvim</span></h2>
+      <table>
+        <tr><td class="k"><kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd></td><td class="d">left, down, up, right <em>(arrows work too)</em></td></tr>
+        <tr><td class="k"><kbd>w</kbd> / <kbd>b</kbd></td><td class="d">Forward / back one word</td></tr>
+        <tr><td class="k"><kbd>0</kbd> / <kbd>$</kbd></td><td class="d">Start / end of line</td></tr>
+        <tr><td class="k"><kbd>gg</kbd> / <kbd>G</kbd></td><td class="d">Top / bottom of file</td></tr>
+        <tr><td class="k"><kbd>42G</kbd></td><td class="d">Go to line 42</td></tr>
+        <tr><td class="k"><kbd>Ctrl-d</kbd> / <kbd>Ctrl-u</kbd></td><td class="d">Half page down / up</td></tr>
+        <tr><td class="k"><kbd>%</kbd></td><td class="d">Jump to matching bracket</td></tr>
+        <tr><td class="k"><kbd>Ctrl-h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd></td><td class="d">Move between splits <em>(your custom keys)</em></td></tr>
+        <tr><td class="k"><kbd>:vsplit</kbd> / <kbd>:split</kbd></td><td class="d">Split window vertically / horizontally</td></tr>
+      </table>
+    </section>
+
+    <section data-app="nvim">
+      <h2>Editing<span class="appchip">nvim</span></h2>
+      <table>
+        <tr><td class="k"><kbd>x</kbd></td><td class="d">Delete one character</td></tr>
+        <tr><td class="k"><kbd>dd</kbd></td><td class="d">Delete line <em>(<kbd>3dd</kbd> = 3 lines)</em></td></tr>
+        <tr><td class="k"><kbd>yy</kbd> &middot; <kbd>p</kbd> / <kbd>P</kbd></td><td class="d">Copy line &middot; paste after / before</td></tr>
+        <tr><td class="k"><kbd>cw</kbd></td><td class="d">Change word &mdash; deletes it, drops you in Insert</td></tr>
+        <tr><td class="k"><kbd>o</kbd> / <kbd>O</kbd></td><td class="d">New line below / above, in Insert</td></tr>
+        <tr><td class="k"><kbd>A</kbd> / <kbd>I</kbd></td><td class="d">Insert at end / start of line</td></tr>
+        <tr><td class="k"><kbd>.</kbd></td><td class="d">Repeat last change<span class="star">★</span> <em>the most underrated key</em></td></tr>
+        <tr><td class="k"><kbd>v</kbd> &rarr; move &rarr; <kbd>y</kbd>/<kbd>d</kbd></td><td class="d">Select, then copy / cut &mdash; goes to the macOS clipboard</td></tr>
+        <tr><td class="k"><kbd>&lt;</kbd> / <kbd>&gt;</kbd> <em>(visual)</em></td><td class="d">Indent left / right, keeping the selection</td></tr>
+      </table>
+    </section>
+
+    <section data-app="nvim">
+      <h2>Search &amp; replace<span class="appchip">nvim</span></h2>
+      <table>
+        <tr><td class="k"><kbd>/word</kbd><kbd>Enter</kbd></td><td class="d">Search forward &middot; <kbd>n</kbd> next, <kbd>N</kbd> previous</td></tr>
+        <tr><td class="k"><kbd>*</kbd></td><td class="d">Search for the word under the cursor</td></tr>
+        <tr><td class="k"><kbd>:%s/old/new/g</kbd></td><td class="d">Replace everywhere in the file</td></tr>
+        <tr><td class="k"><kbd>:%s/old/new/gc</kbd></td><td class="d">Same, but confirm each one</td></tr>
+        <tr><td class="k"><kbd>Esc</kbd></td><td class="d">Clear the search highlight <em>(your custom key)</em></td></tr>
+      </table>
+    </section>
+
+    <section data-app="nvim">
+      <h2>Folding <span class="note">&mdash; collapse sections</span><span class="appchip">nvim</span></h2>
+      <table>
+        <tr><td class="k"><kbd>za</kbd></td><td class="d">Toggle the fold under the cursor<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>zo</kbd> / <kbd>zc</kbd></td><td class="d">Open / close this fold</td></tr>
+        <tr><td class="k"><kbd>z⇧R</kbd> / <kbd>z⇧M</kbd></td><td class="d">Open <strong>all</strong> / close <strong>all</strong><span class="star">★</span> <em>capitals &mdash; needs Shift</em></td></tr>
+        <tr><td class="k"><kbd>zr</kbd> / <kbd>zm</kbd></td><td class="d">Open / close <strong>one level</strong></td></tr>
+        <tr><td class="k"><kbd>z⇧A</kbd></td><td class="d">Toggle this fold and everything nested</td></tr>
+        <tr><td class="k"><kbd>zj</kbd> / <kbd>zk</kbd></td><td class="d">Jump to next / previous fold</td></tr>
+        <tr><td class="k"><kbd>zx</kbd></td><td class="d">Reset every fold to the default level<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>zf</kbd></td><td class="d">Create a fold &mdash; from a <kbd>v</kbd> selection or a motion (<kbd>zf5j</kbd>)</td></tr>
+      </table>
+      <p class="foot">
+        <strong>Capitals go all the way, lowercase one step.</strong><br>
+        <strong>In markdown</strong> folds follow your headings and open to <code>foldlevel = 1</code> &mdash; H1 expanded, H2+ collapsed. Change the number in <code>lua/options.lua</code>.
+        <strong>Everywhere else</strong> folding is manual: nothing to open until you make a fold with <kbd>zf</kbd>.
+      </p>
+    </section>
+
+    <section data-app="nvim">
+      <h2>Code intelligence <span class="note">&mdash; LSP</span><span class="appchip">nvim</span></h2>
+      <table>
+        <tr><td class="k"><kbd>gd</kbd> or <kbd>F12</kbd></td><td class="d">Go to definition<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>Ctrl-o</kbd></td><td class="d">Jump back where you were<span class="star">★</span> <em>the return trip after <kbd>gd</kbd></em></td></tr>
+        <tr><td class="k"><kbd>K</kbd></td><td class="d">Show type / docs under cursor</td></tr>
+        <tr><td class="k"><kbd>gr</kbd> / <kbd>gi</kbd> / <kbd>gD</kbd></td><td class="d">References / implementation / declaration</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>rn</kbd></td><td class="d">Rename symbol everywhere</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>ca</kbd></td><td class="d">Code action (auto-fix, imports)</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>e</kbd></td><td class="d">Show full error under cursor</td></tr>
+        <tr><td class="k"><kbd>[d</kbd> / <kbd>]d</kbd></td><td class="d">Previous / next error</td></tr>
+      </table>
+      <p class="foot">Only active in files a language server attaches to. TypeScript uses <code>tsc --lsp</code> from the project's own <code>node_modules</code>.</p>
+    </section>
+
+    <section data-app="nvim">
+      <h2>Git <span class="note">&mdash; gitsigns</span><span class="appchip">nvim</span></h2>
+      <table>
+        <tr><td class="k"><kbd>]c</kbd> / <kbd>[c</kbd></td><td class="d">Next / previous change<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>gp</kbd></td><td class="d">Preview this change &mdash; old vs new<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>gd</kbd></td><td class="d">Side-by-side diff of this file</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>gr</kbd> / <kbd>g⇧R</kbd></td><td class="d">Undo this change / every change in the file</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>gs</kbd> / <kbd>gu</kbd></td><td class="d">Stage / unstage this change</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>gb</kbd></td><td class="d">Toggle blame &mdash; who last changed this line</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>gg</kbd></td><td class="d">Pick from the changed files</td></tr>
+      </table>
+      <p class="foot">A &ldquo;hunk&rdquo; is one block of changed lines. Marks appear in the left gutter as you edit.</p>
+    </section>
+
+    <section data-app="nvim">
+      <h2>Files &amp; pickers<span class="appchip">nvim</span></h2>
+      <table>
+        <tr><td class="k"><kbd>Space</kbd><kbd>ff</kbd></td><td class="d">Find files by name<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>fg</kbd></td><td class="d">Search text across the project<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>fe</kbd></td><td class="d">File tree sidebar, coloured by git status</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>fb</kbd> / <kbd>fr</kbd> / <kbd>fh</kbd></td><td class="d">Buffers / recent files / help docs</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>z</kbd></td><td class="d">Zen mode (focus)</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>mi</kbd></td><td class="d">Preview image under cursor</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>mr</kbd></td><td class="d">Toggle rendered &harr; raw markdown</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>mp</kbd></td><td class="d">Markdown preview in the browser</td></tr>
+      </table>
+    </section>
+
+    <section data-app="nvim">
+      <h2>Obsidian inside nvim<span class="appchip">nvim</span></h2>
+      <table>
+        <tr><td class="k"><kbd>Space</kbd><kbd>oq</kbd></td><td class="d">Quick switch note<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>os</kbd></td><td class="d">Search the vault</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>ob</kbd></td><td class="d">Backlinks &mdash; what links here</td></tr>
+        <tr><td class="k"><kbd>gf</kbd></td><td class="d">Follow the <code>[[link]]</code> under the cursor</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>oo</kbd></td><td class="d">Open this note in the Obsidian app</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>on</kbd> / <kbd>od</kbd> / <kbd>oy</kbd></td><td class="d">New note / today / yesterday</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>ot</kbd> / <kbd>op</kbd></td><td class="d">Tags / paste image</td></tr>
+        <tr><td class="k"><kbd>Space</kbd><kbd>ol</kbd> <em>(visual)</em></td><td class="d">Turn selection into a <code>[[link]]</code></td></tr>
+      </table>
+      <p class="foot">Works in DPx, DavidMasterFile and The Reading Challenge.</p>
+    </section>
+
+    <section data-app="nvim">
+      <h2>When stuck<span class="appchip">nvim</span></h2>
+      <table>
+        <tr><td class="k"><kbd>Esc</kbd><kbd>Esc</kbd><kbd>:q!</kbd><kbd>Enter</kbd></td><td class="d">Gets you out of anything<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>Space</kbd> <em>then wait</em></td><td class="d">which-key lists every custom command</td></tr>
+        <tr><td class="k"><kbd>:Tutor</kbd></td><td class="d">Built-in hands-on tutorial, 25 min<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>:checkhealth</kbd></td><td class="d">Diagnose a broken plugin or server</td></tr>
+        <tr><td class="k"><kbd>:Lazy</kbd></td><td class="d">Plugin manager &mdash; install, update, view</td></tr>
+        <tr><td class="k"><kbd>:LspInfo</kbd></td><td class="d">Is a language server attached to this file?</td></tr>
+        <tr><td class="k"><kbd>:e</kbd></td><td class="d">Reload the file from disk <em>(after Claude edits it)</em></td></tr>
+      </table>
+    </section>
+
+  </div>
 </div>
 
-<div class="grid">
+<!-- ══════════════════════════════ OBSIDIAN ══════════════════════════════ -->
+<div class="panel hidden" data-app="obsidian">
+  <div class="lede no-print">
+    <p><strong>⌥ is your Right Option key.</strong> Left Option is remapped by Karabiner for Space switching, so these all use the right one.</p>
+  </div>
+  <div class="grid">
 
-  <section>
-    <h2>Modes</h2>
-    <table>
-      <tr><td class="k"><kbd>Esc</kbd></td><td class="d"><strong>Normal</strong> &mdash; moving &amp; commands. You start here <em>&mdash; your panic button</em></td></tr>
-      <tr><td class="k"><kbd>i</kbd></td><td class="d"><strong>Insert</strong> &mdash; actually typing text</td></tr>
-      <tr><td class="k"><kbd>v</kbd></td><td class="d"><strong>Visual</strong> &mdash; selecting text</td></tr>
-      <tr><td class="k"><kbd>:</kbd></td><td class="d"><strong>Command</strong> &mdash; save, quit, replace</td></tr>
-    </table>
-  </section>
+    <section data-app="obsidian">
+      <h2>Panes &amp; navigation<span class="appchip">Obsidian</span></h2>
+      <table>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>-</kbd></td><td class="d">Toggle left sidebar</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>→</kbd></td><td class="d">Split vertical</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>↑</kbd></td><td class="d">Move to new window</td></tr>
+        <tr><td class="k"><kbd>⌃</kbd><kbd>Tab</kbd></td><td class="d">Next tab</td></tr>
+        <tr><td class="k"><kbd>⌃</kbd><kbd>⇧</kbd><kbd>Tab</kbd></td><td class="d">Previous tab</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>←</kbd> / <kbd>→</kbd></td><td class="d">Navigate back / forward</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>G</kbd></td><td class="d">Collapse file explorer</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>F</kbd></td><td class="d">Fold all</td></tr>
+      </table>
+    </section>
 
-  <section>
-    <h2>Survival <span class="note">&mdash; learn these six first</span></h2>
-    <table>
-      <tr><td class="k"><kbd>Esc</kbd></td><td class="d">Back to Normal mode<span class="star">★</span></td></tr>
-      <tr><td class="k"><kbd>i</kbd></td><td class="d">Start typing</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>w</kbd></td><td class="d">Save <em>(your custom key)</em></td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>q</kbd></td><td class="d">Quit <em>(your custom key)</em></td></tr>
-      <tr><td class="k"><kbd class="wide">:q!</kbd><kbd>Enter</kbd></td><td class="d">Quit, throw away changes</td></tr>
-      <tr><td class="k"><kbd>u</kbd> / <kbd>Ctrl-r</kbd></td><td class="d">Undo / redo</td></tr>
-    </table>
-  </section>
+    <section data-app="obsidian">
+      <h2>Files &amp; paths<span class="appchip">Obsidian</span></h2>
+      <table>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>'</kbd></td><td class="d">Copy full path</td></tr>
+        <tr><td class="k"><kbd>⌥⌘⇧</kbd><kbd>/</kbd></td><td class="d">Copy path</td></tr>
+        <tr><td class="k"><kbd>⌥⌘</kbd><kbd>R</kbd></td><td class="d">Open with default app</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>R</kbd></td><td class="d">Reveal active file in Finder</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>D</kbd></td><td class="d">Delete file</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>F</kbd></td><td class="d">Copy as HTML</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>P</kbd></td><td class="d">Add metadata property</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>N</kbd></td><td class="d">ZK Prefixer (dated note name)</td></tr>
+      </table>
+    </section>
 
-  <section>
-    <h2>Moving <span class="note">&mdash; Normal mode</span></h2>
-    <table>
-      <tr><td class="k"><kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd></td><td class="d">left, down, up, right <em>(arrows work too)</em></td></tr>
-      <tr><td class="k"><kbd>w</kbd> / <kbd>b</kbd></td><td class="d">Forward / back one word</td></tr>
-      <tr><td class="k"><kbd>0</kbd> / <kbd>$</kbd></td><td class="d">Start / end of line</td></tr>
-      <tr><td class="k"><kbd>gg</kbd> / <kbd>G</kbd></td><td class="d">Top / bottom of file</td></tr>
-      <tr><td class="k"><kbd>42G</kbd></td><td class="d">Go to line 42</td></tr>
-      <tr><td class="k"><kbd>Ctrl-d</kbd> / <kbd>Ctrl-u</kbd></td><td class="d">Half page down / up</td></tr>
-      <tr><td class="k"><kbd>%</kbd></td><td class="d">Jump to matching bracket</td></tr>
-    </table>
-  </section>
+    <section data-app="obsidian">
+      <h2>Tables<span class="appchip">Obsidian</span></h2>
+      <table>
+        <tr><td class="k"><kbd>⌃</kbd><kbd>↑</kbd></td><td class="d">Insert row before</td></tr>
+        <tr><td class="k"><kbd>⌃</kbd><kbd>↓</kbd></td><td class="d">Insert row after</td></tr>
+        <tr><td class="k"><kbd>⌥⌘</kbd><kbd>T</kbd></td><td class="d">Table control bar</td></tr>
+      </table>
+    </section>
 
-  <section>
-    <h2>Editing</h2>
-    <table>
-      <tr><td class="k"><kbd>x</kbd></td><td class="d">Delete one character</td></tr>
-      <tr><td class="k"><kbd>dd</kbd></td><td class="d">Delete line <em>(<kbd>3dd</kbd> = 3 lines)</em></td></tr>
-      <tr><td class="k"><kbd>yy</kbd> &middot; <kbd>p</kbd> / <kbd>P</kbd></td><td class="d">Copy line &middot; paste after / before</td></tr>
-      <tr><td class="k"><kbd>cw</kbd></td><td class="d">Change word &mdash; deletes it, drops you in Insert</td></tr>
-      <tr><td class="k"><kbd>o</kbd> / <kbd>O</kbd></td><td class="d">New line below / above, in Insert</td></tr>
-      <tr><td class="k"><kbd>A</kbd> / <kbd>I</kbd></td><td class="d">Insert at end / start of line</td></tr>
-      <tr><td class="k"><kbd>.</kbd></td><td class="d">Repeat last change<span class="star">★</span> <em>the most underrated key</em></td></tr>
-      <tr><td class="k"><kbd>v</kbd> &rarr; move &rarr; <kbd>d</kbd>/<kbd>y</kbd></td><td class="d">Select, then delete / copy</td></tr>
-    </table>
-  </section>
+    <section data-app="obsidian">
+      <h2>AI &amp; ChatMD<span class="appchip">Obsidian</span></h2>
+      <table>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>A</kbd></td><td class="d">ChatMD: Call API<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>C</kbd></td><td class="d">ChatMD: Stop streaming</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>L</kbd></td><td class="d">ChatMD: Select model</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>S</kbd></td><td class="d">ChatMD: Infer title</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>H</kbd></td><td class="d">ChatGPT: Move to chat</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>Z</kbd></td><td class="d">ChatGPT: Choose template</td></tr>
+      </table>
+    </section>
 
-  <section>
-    <h2>Search &amp; replace</h2>
-    <table>
-      <tr><td class="k"><kbd>/word</kbd><kbd>Enter</kbd></td><td class="d">Search forward &middot; <kbd>n</kbd> next, <kbd>N</kbd> previous</td></tr>
-      <tr><td class="k"><kbd>*</kbd></td><td class="d">Search for the word under the cursor</td></tr>
-      <tr><td class="k"><kbd class="wide">:%s/old/new/g</kbd></td><td class="d">Replace everywhere in the file</td></tr>
-      <tr><td class="k"><kbd class="wide">:%s/old/new/gc</kbd></td><td class="d">Same, but confirm each one</td></tr>
-    </table>
-  </section>
+    <section data-app="obsidian">
+      <h2>Shell commands &amp; tools<span class="appchip">Obsidian</span></h2>
+      <table>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>I</kbd></td><td class="d">Shell command 1</td></tr>
+        <tr><td class="k"><kbd>⌥⇧</kbd><kbd>I</kbd></td><td class="d">Shell command (shift)</td></tr>
+        <tr><td class="k"><kbd>⌥⌘</kbd><kbd>I</kbd></td><td class="d">Shell command (cmd)</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>I</kbd> / <kbd>K</kbd> / <kbd>T</kbd></td><td class="d">Shell commands 3, 4, 5</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>X</kbd></td><td class="d">Extract URL: Import</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>H</kbd></td><td class="d">QuickAdd choice</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>E</kbd></td><td class="d">Meld encrypt</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>X</kbd></td><td class="d">Whisper: start / stop dictation</td></tr>
+      </table>
+      <p class="foot">Command palette (<kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd>) &rarr; <strong>&ldquo;Export epub and send to kindle&rdquo;</strong> works in DPx, DMF and TRC.</p>
+    </section>
 
-  <section>
-    <h2>Folding <span class="note">&mdash; collapse sections</span></h2>
-    <table>
-      <tr><td class="k"><kbd>za</kbd></td><td class="d">Toggle the fold under the cursor<span class="star">★</span> <em>the only one you really need</em></td></tr>
-      <tr><td class="k"><kbd>zo</kbd> / <kbd>zc</kbd></td><td class="d">Open / close this fold</td></tr>
-      <tr><td class="k"><kbd>z⇧R</kbd> / <kbd>z⇧M</kbd></td><td class="d">Open <strong>all</strong> / close <strong>all</strong> folds<span class="star">★</span> <em>capitals &mdash; needs Shift</em></td></tr>
-      <tr><td class="k"><kbd>zr</kbd> / <kbd>zm</kbd></td><td class="d">Open / close <strong>one level</strong> at a time</td></tr>
-      <tr><td class="k"><kbd>z⇧A</kbd></td><td class="d">Toggle this fold and everything nested inside it</td></tr>
-      <tr><td class="k"><kbd>zj</kbd> / <kbd>zk</kbd></td><td class="d">Jump to the next / previous fold</td></tr>
-      <tr><td class="k"><kbd>zx</kbd></td><td class="d">Reset every fold back to the default level<span class="star">★</span> <em>undoes your manual opening/closing</em></td></tr>
-      <tr><td class="k"><kbd>zv</kbd></td><td class="d">Open just enough to reveal the cursor</td></tr>
-      <tr><td class="k"><kbd>zf</kbd></td><td class="d">Create a fold &mdash; from a <kbd>v</kbd> selection, or with a motion (<kbd>zf5j</kbd> = next 5 lines)</td></tr>
-      <tr><td class="k"><kbd>zd</kbd> / <kbd>zE</kbd></td><td class="d">Delete this fold / all folds <em>(manual folds only)</em></td></tr>
-    </table>
-    <p style="margin:10px 0 8px;color:var(--muted);font-size:13px;line-height:1.45">
-      <strong style="color:var(--ink)">Capitals go all the way, lowercase goes one step.</strong> <kbd>z⇧R</kbd> opens every fold, <kbd>zr</kbd> opens one level; <kbd>z⇧M</kbd> closes every fold, <kbd>zm</kbd> closes one. Same rule for <kbd>z⇧A</kbd> vs <kbd>za</kbd>.<br>
-      <strong style="color:var(--ink)">Your working set:</strong> <kbd>za</kbd> while reading, <kbd>z⇧R</kbd> to see the whole file, <kbd>zx</kbd> to snap back to the outline.<br>
-      <strong style="color:var(--ink)">In markdown</strong>, folds follow your headings automatically and open to <code>foldlevel&nbsp;=&nbsp;1</code> &mdash; H1 sections expanded, H2 and deeper collapsed, like an outline. Change the number in <code>lua/options.lua</code>: <code>0</code> shows only H1 lines, <code>2</code> goes down to H3, <code>99</code> opens everything.
-      <strong style="color:var(--ink)">Everywhere else</strong> folding is manual: nothing to open until you make a fold with <kbd>zf</kbd>.
-    </p>
-  </section>
+    <section data-app="obsidian">
+      <h2>BTT floating menus <span class="note">&mdash; no keys</span><span class="appchip">Obsidian</span></h2>
+      <table>
+        <tr><td class="k">Mini Menu Left</td><td class="d">Insert date <code>yyyy.MM.dd</code>, insert <code>DP.yyyy.MM.dd</code> <em>(global)</em></td></tr>
+        <tr><td class="k">obsidian_menu</td><td class="d">C2O operations, tree operations</td></tr>
+        <tr><td class="k">code_menu</td><td class="d"><code>/logissue</code>, <code>/getstatus</code>, <code>/logtask</code> <em>(VS Code)</em></td></tr>
+      </table>
+    </section>
 
-  <section>
-    <h2>Code intelligence <span class="note">&mdash; needs a language server</span></h2>
-    <table>
-      <tr><td class="k"><kbd>gd</kbd> or <kbd>F12</kbd></td><td class="d">Go to definition<span class="star">★</span></td></tr>
-      <tr><td class="k"><kbd>Ctrl-o</kbd></td><td class="d">Jump back where you were<span class="star">★</span> <em>the return trip after <kbd>gd</kbd></em></td></tr>
-      <tr><td class="k"><kbd>K</kbd></td><td class="d">Show type / docs under cursor</td></tr>
-      <tr><td class="k"><kbd>gr</kbd></td><td class="d">Find all references</td></tr>
-      <tr><td class="k"><kbd>gi</kbd> / <kbd>gD</kbd></td><td class="d">Go to implementation / declaration</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>rn</kbd></td><td class="d">Rename symbol everywhere</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>ca</kbd></td><td class="d">Code action (auto-fix, imports)</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>e</kbd></td><td class="d">Show full error under cursor</td></tr>
-      <tr><td class="k"><kbd>[d</kbd> / <kbd>]d</kbd></td><td class="d">Previous / next error</td></tr>
-    </table>
-  </section>
+  </div>
+</div>
 
-  <section>
-    <h2>Files &amp; windows <span class="note">&mdash; telescope</span></h2>
-    <table>
-      <tr><td class="k"><kbd>Space</kbd><kbd>ff</kbd></td><td class="d">Find files by name<span class="star">★</span></td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>fg</kbd></td><td class="d">Search text across the project<span class="star">★</span></td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>fb</kbd></td><td class="d">Open buffers</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>fr</kbd></td><td class="d">Recent files</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>fh</kbd></td><td class="d">Search the help docs</td></tr>
-      <tr><td class="k"><kbd>Ctrl-h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd></td><td class="d">Move between splits</td></tr>
-      <tr><td class="k"><kbd class="wide">:vsplit</kbd> / <kbd class="wide">:split</kbd></td><td class="d">Split window vertically / horizontally</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>z</kbd></td><td class="d">Zen mode (focus)</td></tr>
-    </table>
-  </section>
+<!-- ══════════════════════════════ TERMINAL ══════════════════════════════ -->
+<div class="panel hidden" data-app="terminal">
+  <div class="lede no-print">
+    <p><strong>cmux</strong> is the app; <strong>Ghostty</strong> renders the terminal inside it; <strong>zsh</strong> is the shell. Panes and workspaces belong to cmux.</p>
+  </div>
+  <div class="grid">
 
-  <section>
-    <h2>Git <span class="note">&mdash; gitsigns + snacks</span></h2>
-    <table>
-      <tr><td class="k"><kbd>]c</kbd> / <kbd>[c</kbd></td><td class="d">Jump to next / previous change<span class="star">★</span></td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>gp</kbd></td><td class="d">Preview this change &mdash; old vs new, in a popup<span class="star">★</span></td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>gd</kbd></td><td class="d">Side-by-side diff of this file</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>gr</kbd> / <kbd>g⇧R</kbd></td><td class="d">Undo this change / every change in the file</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>gs</kbd> / <kbd>gu</kbd></td><td class="d">Stage / unstage this change</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>gb</kbd></td><td class="d">Toggle blame &mdash; who last changed this line</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>gg</kbd></td><td class="d">Pick from the changed files</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>fe</kbd></td><td class="d">File tree sidebar, coloured by git status<span class="star">★</span></td></tr>
-    </table>
-    <p style="margin:10px 0 8px;color:var(--muted);font-size:13px;line-height:1.45">
-      A &ldquo;hunk&rdquo; is one contiguous block of changed lines. Marks appear in the left gutter as you edit.
-      In the terminal, <code>lt</code> shows the file tree with the same git status, and <code>cmux diff --unstaged</code> opens a full diff viewer.
-    </p>
-  </section>
+    <section data-app="terminal">
+      <h2>cmux panes<span class="appchip">Terminal</span></h2>
+      <table>
+        <tr><td class="k"><kbd>⌘</kbd><kbd>D</kbd></td><td class="d">Split right<span class="star">★</span></td></tr>
+        <tr><td class="k"><kbd>⌘</kbd><kbd>⇧</kbd><kbd>D</kbd></td><td class="d">Split down</td></tr>
+        <tr><td class="k"><kbd>⌥⌘</kbd><kbd>D</kbd></td><td class="d">Split a <strong>browser</strong> to the right</td></tr>
+        <tr><td class="k"><kbd>⌥⌘</kbd><kbd>←↑↓→</kbd></td><td class="d">Focus the pane in that direction</td></tr>
+        <tr><td class="k"><kbd>⌘</kbd><kbd>⇧</kbd><kbd>↩</kbd></td><td class="d">Zoom this pane full-screen (toggle)</td></tr>
+        <tr><td class="k"><kbd>⌃⌘</kbd><kbd>⇧</kbd><kbd>=</kbd></td><td class="d">Equalize split sizes</td></tr>
+        <tr><td class="k"><kbd>⌃</kbd><kbd>&lt;</kbd></td><td class="d">Toggle the sidebar <em>(your custom key)</em></td></tr>
+        <tr><td class="k"><kbd>⌃⌘</kbd><kbd>=</kbd> / <kbd>-</kbd> / <kbd>0</kbd></td><td class="d">Font bigger / smaller / reset, whole workspace</td></tr>
+      </table>
+      <p class="foot"><strong>⌘D does not work in an ssh-tmux workspace</strong> — the layout there belongs to tmux on the remote. Use <kbd>Ctrl-b</kbd><kbd>%</kbd> instead.</p>
+    </section>
 
-  <section>
-    <h2>Obsidian <span class="note">&mdash; obsidian.nvim</span></h2>
-    <table>
-      <tr><td class="k"><kbd>Space</kbd><kbd>oo</kbd></td><td class="d">Open note in the Obsidian app</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>os</kbd></td><td class="d">Search the vault</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>oq</kbd></td><td class="d">Quick switch note</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>on</kbd></td><td class="d">New note</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>od</kbd> / <kbd>oy</kbd></td><td class="d">Today&rsquo;s / yesterday&rsquo;s daily note</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>ob</kbd></td><td class="d">Backlinks</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>ot</kbd></td><td class="d">Tags</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>op</kbd></td><td class="d">Paste image</td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>ol</kbd></td><td class="d">Link selection <em>(visual mode)</em></td></tr>
-      <tr><td class="k"><kbd>Space</kbd><kbd>mi</kbd></td><td class="d">Preview image under cursor</td></tr>
-    </table>
-  </section>
+    <section data-app="terminal">
+      <h2>cmux from the shell<span class="appchip">Terminal</span></h2>
+      <table>
+        <tr><td class="k"><code>cmux diff --unstaged</code></td><td class="d">Open a real diff viewer<span class="star">★</span> <em>also <code>--staged</code>, <code>--branch</code>, <code>--last-turn</code></em></td></tr>
+        <tr><td class="k"><code>git show HEAD | cmux diff -</code></td><td class="d">Diff anything else, piped in</td></tr>
+        <tr><td class="k"><code>cmux open &lt;path|url&gt;</code></td><td class="d">Open a file, folder or URL</td></tr>
+        <tr><td class="k"><code>cmux browser open &lt;url&gt;</code></td><td class="d">Browser split in this workspace</td></tr>
+        <tr><td class="k"><code>cmux ssh-tmux r5c-1</code></td><td class="d">Mirror Nuclaw's tmux sessions</td></tr>
+        <tr><td class="k"><code>cmux reload-config</code></td><td class="d">Reload cmux + Ghostty config in place</td></tr>
+        <tr><td class="k"><code>cmux --help</code></td><td class="d">Everything else</td></tr>
+      </table>
+    </section>
 
-  <section>
-    <h2>If you get stuck</h2>
-    <table>
-      <tr><td class="k"><kbd>Esc</kbd><kbd>Esc</kbd><kbd class="wide">:q!</kbd><kbd>Enter</kbd></td><td class="d">Gets you out of anything<span class="star">★</span></td></tr>
-      <tr><td class="k"><kbd>Space</kbd> <em>then wait</em></td><td class="d">which-key shows every custom command</td></tr>
-      <tr><td class="k"><kbd class="wide">:Tutor</kbd></td><td class="d">Built-in hands-on tutorial, 25 min<span class="star">★</span></td></tr>
-      <tr><td class="k"><kbd class="wide">:checkhealth</kbd></td><td class="d">Diagnose a broken plugin or server</td></tr>
-      <tr><td class="k"><kbd class="wide">:Lazy</kbd></td><td class="d">Plugin manager &mdash; install, update, view</td></tr>
-      <tr><td class="k"><kbd class="wide">:LspInfo</kbd></td><td class="d">Is a language server attached to this file?</td></tr>
-    </table>
-  </section>
+    <section data-app="terminal">
+      <h2>tmux on Nuclaw <span class="note">&mdash; prefix is ⌃b</span><span class="appchip">Terminal</span></h2>
+      <table>
+        <tr><td class="k"><kbd>Ctrl-b</kbd> <kbd>%</kbd></td><td class="d">Split right</td></tr>
+        <tr><td class="k"><kbd>Ctrl-b</kbd> <kbd>"</kbd></td><td class="d">Split down</td></tr>
+        <tr><td class="k"><kbd>Ctrl-b</kbd> <kbd>x</kbd></td><td class="d">Close this pane</td></tr>
+        <tr><td class="k"><kbd>Ctrl-b</kbd> <kbd>d</kbd></td><td class="d">Detach (leaves everything running)</td></tr>
+        <tr><td class="k"><code>tmux ls</code></td><td class="d">List sessions</td></tr>
+        <tr><td class="k"><code>ssh -t r5c-1 tmux attach -t &lt;job&gt;</code></td><td class="d">Attach to a running job</td></tr>
+      </table>
+    </section>
 
+    <section data-app="terminal">
+      <h2>Listing files <span class="note">&mdash; eza</span><span class="appchip">Terminal</span></h2>
+      <table>
+        <tr><td class="k"><code>ls</code></td><td class="d">Long listing, icons, git status, hidden files</td></tr>
+        <tr><td class="k"><code>lt</code></td><td class="d">Tree, 2 levels, with git status<span class="star">★</span></td></tr>
+        <tr><td class="k"><code>ltree</code></td><td class="d">Same tree, short form</td></tr>
+        <tr><td class="k"><code>cat</code></td><td class="d">Really <code>bat</code> &mdash; syntax highlighted</td></tr>
+      </table>
+      <p class="foot"><strong>The git column</strong> is two characters, staged then unstaged:
+        <code>--</code> clean &middot; <code>-M</code> modified, not staged &middot; <code>M-</code> staged &middot; <code>-N</code> new/untracked &middot; <code>-I</code> ignored.</p>
+    </section>
+
+    <section data-app="terminal">
+      <h2>git aliases<span class="appchip">Terminal</span></h2>
+      <table>
+        <tr><td class="k"><code>gs</code></td><td class="d">git status<span class="star">★</span></td></tr>
+        <tr><td class="k"><code>gd</code></td><td class="d">git diff</td></tr>
+        <tr><td class="k"><code>ga</code></td><td class="d">git add</td></tr>
+        <tr><td class="k"><code>gc "msg"</code></td><td class="d">git commit -m</td></tr>
+        <tr><td class="k"><code>gp</code> / <code>gpu</code></td><td class="d">push origin HEAD / pull origin</td></tr>
+        <tr><td class="k"><code>gco</code> / <code>gb</code></td><td class="d">git checkout / git branch</td></tr>
+        <tr><td class="k"><code>glog</code></td><td class="d">Graph of the last 10 commits</td></tr>
+      </table>
+    </section>
+
+    <section data-app="terminal">
+      <h2>Shell odds &amp; ends<span class="appchip">Terminal</span></h2>
+      <table>
+        <tr><td class="k"><code>..</code> <code>...</code> <code>....</code></td><td class="d">Up one, two, three directories</td></tr>
+        <tr><td class="k"><code>cx &lt;dir&gt;</code></td><td class="d">cd into it <em>and</em> list it</td></tr>
+        <tr><td class="k"><code>cpwd</code></td><td class="d">Copy the current path to the clipboard</td></tr>
+        <tr><td class="k"><code>reload</code></td><td class="d">Re-source <code>~/.zshrc</code></td></tr>
+        <tr><td class="k"><code>mdview &lt;file.md&gt;</code></td><td class="d">Live-rendered markdown, refreshes on save</td></tr>
+        <tr><td class="k"><code>updatedocs</code></td><td class="d">Relink every repo's <code>docs/</code> into the docs vault</td></tr>
+        <tr><td class="k">drag on text</td><td class="d">Copies automatically <em>(Ghostty copy-on-select)</em></td></tr>
+      </table>
+    </section>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════ macOS ══════════════════════════════ -->
+<div class="panel hidden" data-app="macos">
+  <div class="lede no-print">
+    <p><strong>Your two Option keys do different things.</strong> Karabiner rewrites <strong>Left ⌥</strong> before any app sees it; <strong>Right ⌥</strong> passes through untouched and is the one every app shortcut uses.</p>
+  </div>
+  <div class="grid">
+
+    <section data-app="macos">
+      <h2>How the modifiers are wired<span class="appchip">macOS</span></h2>
+      <table>
+        <tr><td class="k"><kbd>L⌥</kbd> + <kbd>1</kbd>–<kbd>9</kbd></td><td class="d">becomes <kbd>⌃1</kbd>–<kbd>⌃9</kbd> &rarr; switch to Space 1–9</td></tr>
+        <tr><td class="k"><kbd>L⌥</kbd> + <kbd>N R S ↑ ← →</kbd></td><td class="d">becomes <kbd>⌃⌥</kbd> + key &rarr; VS Code only</td></tr>
+        <tr><td class="k"><kbd>R⌥</kbd> + anything</td><td class="d">passes through as <kbd>⌥</kbd> &rarr; Obsidian, VS Code, macOS</td></tr>
+        <tr><td class="k"><kbd>⌘</kbd> <kbd>⌃</kbd> <kbd>⇧</kbd></td><td class="d">unchanged everywhere</td></tr>
+      </table>
+      <p class="foot"><strong>Symbols:</strong> ⌘ Command · ⌥ Option · ⌃ Control · ⇧ Shift. Config: <code>karabiner/.config/karabiner/karabiner.json</code>.</p>
+    </section>
+
+    <section data-app="macos">
+      <h2>Screenshots<span class="appchip">macOS</span></h2>
+      <table>
+        <tr><td class="k"><kbd>⇧⌘</kbd><kbd>2</kbd></td><td class="d">Save full screen <em>(modified)</em></td></tr>
+        <tr><td class="k"><kbd>⇧⌘</kbd><kbd>3</kbd></td><td class="d">Copy full screen <em>(modified)</em></td></tr>
+        <tr><td class="k"><kbd>⇧⌘</kbd><kbd>4</kbd></td><td class="d">Copy selection<span class="star">★</span> <em>(modified)</em></td></tr>
+        <tr><td class="k"><kbd>⇧⌘</kbd><kbd>5</kbd></td><td class="d">Save selection <em>(modified)</em></td></tr>
+        <tr><td class="k"><kbd>⇧⌘</kbd><kbd>6</kbd></td><td class="d">Screenshot &amp; recording panel</td></tr>
+      </table>
+      <p class="foot">Copy and save are swapped from Apple's defaults — set in <code>bootstrap.sh</code>.</p>
+    </section>
+
+    <section data-app="macos">
+      <h2>Global &amp; Finder<span class="appchip">macOS</span></h2>
+      <table>
+        <tr><td class="k"><kbd>⌃</kbd><kbd>T</kbd></td><td class="d">cmux: toggle light / dark theme <em>(cmux only)</em></td></tr>
+        <tr><td class="k"><kbd>⌃⌥</kbd><kbd>N</kbd></td><td class="d">cmux: mirror Nuclaw's tmux<span class="star">★</span> <em>(every app except VS Code)</em></td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>C</kbd></td><td class="d">Finder: Copy as Pathname</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>'</kbd></td><td class="d">Finder: Copy as Pathname <em>(Karabiner)</em></td></tr>
+      </table>
+      <p class="foot">⌃⌥N must be pressed physically — Karabiner does not re-process its own output, so L⌥+N still reaches VS Code.</p>
+    </section>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════ VS CODE ══════════════════════════════ -->
+<div class="panel hidden" data-app="vscode">
+  <div class="grid">
+
+    <section data-app="vscode">
+      <h2>Editors &amp; panes<span class="appchip">VS Code</span></h2>
+      <table>
+        <tr><td class="k"><kbd>⌥⌘</kbd><kbd>←</kbd> / <kbd>→</kbd></td><td class="d">Previous / next editor</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>P</kbd></td><td class="d">Pin / unpin editor</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>D</kbd></td><td class="d">Toggle light / dark theme</td></tr>
+      </table>
+    </section>
+
+    <section data-app="vscode">
+      <h2>Terminal<span class="appchip">VS Code</span></h2>
+      <table>
+        <tr><td class="k"><kbd>⌃⌥</kbd><kbd>N</kbd></td><td class="d">New terminal in editor <em>(via L⌥+N)</em></td></tr>
+        <tr><td class="k"><kbd>⌃⌥</kbd><kbd>R</kbd></td><td class="d">TAM: rename terminal</td></tr>
+        <tr><td class="k"><kbd>⌃⌥</kbd><kbd>S</kbd></td><td class="d">TAM: search terminals</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>T</kbd></td><td class="d">Create terminal editor</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>→</kbd></td><td class="d">Split terminal</td></tr>
+        <tr><td class="k"><kbd>⌥</kbd><kbd>C</kbd></td><td class="d">Change terminal colour</td></tr>
+        <tr><td class="k"><kbd>⇧</kbd><kbd>Enter</kbd></td><td class="d">Send esc+enter to the terminal</td></tr>
+      </table>
+    </section>
+
+    <section data-app="vscode">
+      <h2>Claude in VS Code<span class="appchip">VS Code</span></h2>
+      <table>
+        <tr><td class="k"><kbd>⌥⌘</kbd></td><td class="d">Accept diff</td></tr>
+        <tr><td class="k"><kbd>⌃⌥⌘</kbd><kbd>↓</kbd> <kbd>⌃⌥⌘</kbd><kbd>↑</kbd></td><td class="d">Quick input: accept in background <em>(chord)</em></td></tr>
+      </table>
+      <p class="foot">Known issue, still unfixed: the <code>ctrl+alt+left</code> binding.</p>
+    </section>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════ CLAUDE CODE ══════════════════════════════ -->
+<div class="panel hidden" data-app="claude">
+  <div class="grid">
+
+    <section data-app="claude">
+      <h2>Your own commands<span class="appchip">Claude Code</span></h2>
+      <table>
+        <tr><td class="k"><code>/rn &lt;name&gt;</code></td><td class="d">Rename the cmux <strong>tab</strong>, the cmux <strong>workspace</strong> and the <strong>Claude session</strong> in one go<span class="star">★</span></td></tr>
+        <tr><td class="k"><code>/dp-endofsession</code></td><td class="d">Write an end-of-session summary</td></tr>
+        <tr><td class="k"><code>/dp-mermaid</code></td><td class="d">Diagram a process or codebase</td></tr>
+        <tr><td class="k"><code>/dp-pdf</code></td><td class="d">Professional PDF via Typst</td></tr>
+        <tr><td class="k"><code>/dp-claude</code> / <code>/dp-ai</code></td><td class="d">File notes into the Claude / AI knowledge base</td></tr>
+        <tr><td class="k"><code>/dp-code-explain</code></td><td class="d">Annotate a file line by line</td></tr>
+        <tr><td class="k"><code>/dp-dotfiles</code> / <code>/dp-cleanup</code></td><td class="d">Update dotfiles / system cleanup</td></tr>
+        <tr><td class="k"><code>/vanstatus</code> / <code>/livenotes</code></td><td class="d">LTV inventory / live meeting notes</td></tr>
+      </table>
+      <p class="foot">Commands live in <code>~/code/claude-personal/commands/</code>, skills in <code>skills/</code> — both symlinked into <code>~/.claude/</code>.</p>
+    </section>
+
+    <section data-app="claude">
+      <h2>Built-in<span class="appchip">Claude Code</span></h2>
+      <table>
+        <tr><td class="k"><code>/rename &lt;name&gt;</code></td><td class="d">Rename just this session</td></tr>
+        <tr><td class="k"><code>/clear</code></td><td class="d">Start fresh, dropping the context</td></tr>
+        <tr><td class="k"><code>/config</code></td><td class="d">Settings — model, theme, auto-updates</td></tr>
+        <tr><td class="k"><code>/hooks</code></td><td class="d">See and edit what runs on which event<span class="star">★</span></td></tr>
+        <tr><td class="k"><code>/artifacts</code></td><td class="d">List published artifacts</td></tr>
+        <tr><td class="k"><code>/code-review ultra</code></td><td class="d">Deep multi-agent review of the branch</td></tr>
+        <tr><td class="k"><kbd>⇧</kbd><kbd>Tab</kbd></td><td class="d">Cycle permission mode</td></tr>
+        <tr><td class="k"><kbd>!</kbd> at the prompt</td><td class="d">Run a shell command directly in the session</td></tr>
+      </table>
+    </section>
+
+    <section data-app="claude">
+      <h2>Hooks that run here<span class="appchip">Claude Code</span></h2>
+      <table>
+        <tr><td class="k">SessionStart</td><td class="d"><code>migrate-memory-to-vault.sh</code> — moves memory into the Obsidian vault</td></tr>
+        <tr><td class="k">SessionStart</td><td class="d"><code>cleanup-orphan-mcps.sh</code> — kills MCP processes whose parent exited</td></tr>
+        <tr><td class="k">UserPromptSubmit</td><td class="d"><code>block-venv-inject.sh</code> — blocks the venv prompt-injection bug</td></tr>
+      </table>
+      <p class="foot"><strong>Stop fires after every reply, not at session end</strong> — that mistake made an old hook kill every MCP server each turn. Retired; see <code>~/.claude/hooks/STALE.md</code>.</p>
+    </section>
+
+  </div>
 </div>
 
 <p id="empty">Nothing matches that.</p>
 </main>
 
 <footer>
-  Config lives in <code>~/code/dotfiles/nvim/.config/nvim/</code>, symlinked to <code>~/.config/nvim</code>.
-  Code intelligence comes from <code>lua/plugins/lsp.lua</code> &mdash; TypeScript uses <code>tsc --lsp</code> from the
-  project&rsquo;s own <code>node_modules</code>, so it always matches the project&rsquo;s TypeScript version.
+  Generated from the real configs: <code>karabiner.json</code>, Obsidian <code>hotkeys.json</code>, VS Code <code>keybindings.json</code>,
+  <code>nvim/.config/nvim/lua/</code>, <code>zsh/.zshrc</code> and cmux's own shortcut table.
+  Source of truth for edits: <code>~/code/dotfiles/keyboard-shortcuts.md</code>.
   <span class="star">★</span> marks the ones worth memorising first.
 </footer>
 
 <script>
-  const input = document.getElementById('filter');
-  const rows = [...document.querySelectorAll('tbody tr, table tr')];
-  const sections = [...document.querySelectorAll('section')];
-  const empty = document.getElementById('empty');
+  const tabs    = document.getElementById('tabs');
+  const buttons = [...tabs.querySelectorAll('button')];
+  const panels  = [...document.querySelectorAll('.panel')];
+  const input   = document.getElementById('filter');
+  const empty   = document.getElementById('empty');
+  const rows    = [...document.querySelectorAll('section tr')];
+  const sections= [...document.querySelectorAll('section')];
+
+  function showTab(app) {
+    buttons.forEach(b => b.setAttribute('aria-selected', String(b.dataset.app === app)));
+    panels.forEach(p => p.classList.toggle('hidden', p.dataset.app !== app));
+    try { localStorage.setItem('cheatsheet-tab', app); } catch (e) {}
+  }
+
+  tabs.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    input.value = '';
+    apply();
+    showTab(b.dataset.app);
+  });
 
   function apply() {
     const q = input.value.trim().toLowerCase();
+    document.body.classList.toggle('searching', q.length > 0);
+
     if (!q) {
       rows.forEach(r => r.classList.remove('hidden'));
       sections.forEach(s => s.classList.remove('hidden'));
       empty.style.display = 'none';
+      const active = buttons.find(b => b.getAttribute('aria-selected') === 'true');
+      showTab(active ? active.dataset.app : 'nvim');
+      buttons.forEach(b => { const n = b.querySelector('.n'); if (n) n.remove(); });
       return;
     }
+
+    // Searching spans every tab: reveal all panels, hide non-matching rows.
+    panels.forEach(p => p.classList.remove('hidden'));
     rows.forEach(r => r.classList.toggle('hidden', !r.textContent.toLowerCase().includes(q)));
-    let anyVisible = false;
+
+    let total = 0;
+    const perApp = {};
     sections.forEach(s => {
       const hit = [...s.querySelectorAll('tr')].some(r => !r.classList.contains('hidden'))
                   || s.querySelector('h2').textContent.toLowerCase().includes(q);
       s.classList.toggle('hidden', !hit);
-      if (hit) anyVisible = true;
+      if (hit) { total++; perApp[s.dataset.app] = (perApp[s.dataset.app] || 0) + 1; }
     });
-    empty.style.display = anyVisible ? 'none' : 'block';
+
+    buttons.forEach(b => {
+      let n = b.querySelector('.n');
+      const c = perApp[b.dataset.app];
+      if (c) {
+        if (!n) { n = document.createElement('span'); n.className = 'n'; b.appendChild(n); }
+        n.textContent = c;
+      } else if (n) { n.remove(); }
+    });
+
+    empty.style.display = total ? 'none' : 'block';
   }
 
   input.addEventListener('input', apply);
@@ -335,6 +701,10 @@
     if (e.key === '/' && document.activeElement !== input) { e.preventDefault(); input.focus(); input.select(); }
     if (e.key === 'Escape' && document.activeElement === input) { input.value = ''; apply(); input.blur(); }
   });
+
+  let saved = 'nvim';
+  try { saved = localStorage.getItem('cheatsheet-tab') || 'nvim'; } catch (e) {}
+  showTab(buttons.some(b => b.dataset.app === saved) ? saved : 'nvim');
 </script>
 
 </body>
