@@ -1,0 +1,40 @@
+{
+  "$schema" : "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "app" : {
+    "appearance" : "dark",
+    "menuBarOnly" : false
+  },
+  "schemaVersion" : 1,
+  "shortcuts" : {
+    "bindings" : {
+      "browserZoomIn" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "+",
+          "keyCode" : 30,
+          "option" : false,
+          "shift" : false
+        }
+      },
+      "toggleSidebar" : {
+        "first" : {
+          "command" : false,
+          "control" : true,
+          "key" : "<",
+          "keyCode" : 50,
+          "option" : false,
+          "shift" : false
+        }
+      }
+    }
+  },
+  "sidebarAppearance" : {
+    "matchTerminalBackground" : true
+  },
+  "workspaceColors" : {
+    "indicatorStyle" : "solidFill"
+  },
+  "paneBorderColor" : "#8A8F98",
+  "activePaneBorderColor" : "#2F6F4E"
+}

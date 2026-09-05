@@ -61,7 +61,9 @@ stow -t ~ git
 stow -t ~ starship
 stow --no-folding -t ~ karabiner
 stow --no-folding -t ~ ghostty
-echo "  ✓ zsh, git, starship, karabiner, ghostty stowed"
+stow --no-folding -t ~ cmux
+stow --no-folding -t ~ nvim
+echo "  ✓ zsh, git, starship, karabiner, ghostty, cmux, nvim stowed"
 
 # ===========================================
 # 5. Git config (prompt for email)
@@ -90,11 +92,11 @@ fi
 # 7. Obsidian
 # ===========================================
 step "Setting up Obsidian..."
-OBSIDIAN_VAULT="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/YourVault"
+OBSIDIAN_VAULT="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/DPx"
 if [ -d "$OBSIDIAN_VAULT" ]; then
-    echo "  Obsidian vault found. Config will sync via iCloud."
+    echo "  DPx vault found. Config will sync via iCloud."
 else
-    warn "Obsidian vault not found. After setting up iCloud:"
+    warn "DPx vault not found. After setting up iCloud:"
     echo "    1. Open Obsidian"
     echo "    2. Open vault from iCloud"
     echo "    3. Or copy config: cp -r $DOTFILES_DIR/obsidian/.obsidian/* <vault>/.obsidian/"
@@ -218,7 +220,34 @@ killall Dock 2>/dev/null || true
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
 # ===========================================
-# 10. Reload shell
+# 10. Login Items (auto-launch on login)
+# ===========================================
+step "Registering Login Items..."
+register_login_item() {
+    local app_path="$1"
+    local app_name
+    app_name="$(basename "$app_path" .app)"
+    if [ ! -d "$app_path" ]; then
+        warn "  $app_name not installed at $app_path — skipping"
+        return
+    fi
+    # Skip if already registered (avoid duplicates on re-run)
+    if osascript -e "tell application \"System Events\" to get the name of every login item" 2>/dev/null | grep -q "$app_name"; then
+        echo "  $app_name already a login item"
+        return
+    fi
+    osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"$app_path\", hidden:true}" >/dev/null 2>&1 \
+        && echo "  ✓ $app_name added to Login Items" \
+        || warn "  Failed to add $app_name (may need to grant Automation permission to Terminal)"
+}
+
+register_login_item "/Applications/BetterTouchTool.app"
+register_login_item "/Applications/Karabiner-Elements.app"
+register_login_item "/Applications/HyperCursor.app"
+register_login_item "/Applications/Maccy.app"
+
+# ===========================================
+# 11. Reload shell
 # ===========================================
 step "Reloading shell..."
 source "$HOME/.zshrc" 2>/dev/null || true

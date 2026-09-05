@@ -1,0 +1,4 @@
+# Helper scripts stay put — Karabiner calls them by absolute path
+# (~/code/dotfiles/cmux/*.sh), so they must NOT be stowed into $HOME.
+cmux-.*\.sh
+README\.md
