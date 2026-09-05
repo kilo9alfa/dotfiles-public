@@ -205,12 +205,13 @@
       <tr><td class="k"><kbd>zr</kbd> / <kbd>zm</kbd></td><td class="d">Open / close one level at a time <em>(lowercase = one step)</em></td></tr>
       <tr><td class="k"><kbd>zA</kbd></td><td class="d">Toggle this fold and everything nested inside it</td></tr>
       <tr><td class="k"><kbd>zj</kbd> / <kbd>zk</kbd></td><td class="d">Jump to the next / previous fold</td></tr>
+      <tr><td class="k"><kbd>zx</kbd></td><td class="d">Reset every fold back to the default level<span class="star">★</span> <em>undoes your manual opening/closing</em></td></tr>
       <tr><td class="k"><kbd>zv</kbd></td><td class="d">Open just enough to reveal the cursor</td></tr>
       <tr><td class="k"><kbd>zf</kbd></td><td class="d">Create a fold &mdash; from a <kbd>v</kbd> selection, or with a motion (<kbd>zf5j</kbd> = next 5 lines)</td></tr>
       <tr><td class="k"><kbd>zd</kbd> / <kbd>zE</kbd></td><td class="d">Delete this fold / all folds <em>(manual folds only)</em></td></tr>
     </table>
     <p style="margin:10px 0 8px;color:var(--muted);font-size:13px;line-height:1.45">
-      <strong style="color:var(--ink)">In markdown</strong>, folds follow your headings automatically and start open &mdash; <kbd>za</kbd> on a heading collapses that section, like Obsidian.
+      <strong style="color:var(--ink)">In markdown</strong>, folds follow your headings automatically and open to <code>foldlevel&nbsp;=&nbsp;1</code> &mdash; H1 sections expanded, H2 and deeper collapsed, like an outline. Change the number in <code>lua/options.lua</code>: <code>0</code> shows only H1 lines, <code>2</code> goes down to H3, <code>99</code> opens everything.
       <strong style="color:var(--ink)">Everywhere else</strong> folding is manual: nothing to open until you make a fold with <kbd>zf</kbd>.
     </p>
   </section>
