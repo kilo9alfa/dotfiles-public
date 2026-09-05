@@ -20,6 +20,13 @@ o.incsearch = true
 o.splitbelow = true
 o.splitright = true
 
+-- A closed fold shows the real first line of the section — syntax-highlighted,
+-- with conceal applied — instead of Neovim's "+--  4 lines: ## Heading" summary.
+-- Empty foldtext is the Neovim 0.10+ way to ask for this; the space fillchar
+-- stops a trail of dashes being drawn after it.
+o.foldtext = ""
+o.fillchars:append({ fold = " " })
+
 o.termguicolors = true
 o.background = "dark"
 

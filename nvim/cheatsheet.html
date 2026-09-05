@@ -201,9 +201,9 @@
     <table>
       <tr><td class="k"><kbd>za</kbd></td><td class="d">Toggle the fold under the cursor<span class="star">★</span> <em>the only one you really need</em></td></tr>
       <tr><td class="k"><kbd>zo</kbd> / <kbd>zc</kbd></td><td class="d">Open / close this fold</td></tr>
-      <tr><td class="k"><kbd>zR</kbd> / <kbd>zM</kbd></td><td class="d">Open <strong>all</strong> / close <strong>all</strong> folds<span class="star">★</span></td></tr>
-      <tr><td class="k"><kbd>zr</kbd> / <kbd>zm</kbd></td><td class="d">Open / close one level at a time <em>(lowercase = one step)</em></td></tr>
-      <tr><td class="k"><kbd>zA</kbd></td><td class="d">Toggle this fold and everything nested inside it</td></tr>
+      <tr><td class="k"><kbd>z⇧R</kbd> / <kbd>z⇧M</kbd></td><td class="d">Open <strong>all</strong> / close <strong>all</strong> folds<span class="star">★</span> <em>capitals &mdash; needs Shift</em></td></tr>
+      <tr><td class="k"><kbd>zr</kbd> / <kbd>zm</kbd></td><td class="d">Open / close <strong>one level</strong> at a time</td></tr>
+      <tr><td class="k"><kbd>z⇧A</kbd></td><td class="d">Toggle this fold and everything nested inside it</td></tr>
       <tr><td class="k"><kbd>zj</kbd> / <kbd>zk</kbd></td><td class="d">Jump to the next / previous fold</td></tr>
       <tr><td class="k"><kbd>zx</kbd></td><td class="d">Reset every fold back to the default level<span class="star">★</span> <em>undoes your manual opening/closing</em></td></tr>
       <tr><td class="k"><kbd>zv</kbd></td><td class="d">Open just enough to reveal the cursor</td></tr>
@@ -211,6 +211,8 @@
       <tr><td class="k"><kbd>zd</kbd> / <kbd>zE</kbd></td><td class="d">Delete this fold / all folds <em>(manual folds only)</em></td></tr>
     </table>
     <p style="margin:10px 0 8px;color:var(--muted);font-size:13px;line-height:1.45">
+      <strong style="color:var(--ink)">Capitals go all the way, lowercase goes one step.</strong> <kbd>z⇧R</kbd> opens every fold, <kbd>zr</kbd> opens one level; <kbd>z⇧M</kbd> closes every fold, <kbd>zm</kbd> closes one. Same rule for <kbd>z⇧A</kbd> vs <kbd>za</kbd>.<br>
+      <strong style="color:var(--ink)">Your working set:</strong> <kbd>za</kbd> while reading, <kbd>z⇧R</kbd> to see the whole file, <kbd>zx</kbd> to snap back to the outline.<br>
       <strong style="color:var(--ink)">In markdown</strong>, folds follow your headings automatically and open to <code>foldlevel&nbsp;=&nbsp;1</code> &mdash; H1 sections expanded, H2 and deeper collapsed, like an outline. Change the number in <code>lua/options.lua</code>: <code>0</code> shows only H1 lines, <code>2</code> goes down to H3, <code>99</code> opens everything.
       <strong style="color:var(--ink)">Everywhere else</strong> folding is manual: nothing to open until you make a fold with <kbd>zf</kbd>.
     </p>
