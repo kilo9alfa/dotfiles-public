@@ -156,6 +156,7 @@
     <button data-app="macos" aria-selected="false">macOS</button>
     <button data-app="vscode" aria-selected="false">VS&nbsp;Code</button>
     <button data-app="claude" aria-selected="false">Claude&nbsp;Code</button>
+    <button data-app="gh" aria-selected="false">git&nbsp;&amp;&nbsp;gh</button>
   </nav>
 </header>
 
@@ -619,6 +620,97 @@
         <tr><td class="k">UserPromptSubmit</td><td class="d"><code>block-venv-inject.sh</code> — blocks the venv prompt-injection bug</td></tr>
       </table>
       <p class="foot"><strong>Stop fires after every reply, not at session end</strong> — that mistake made an old hook kill every MCP server each turn. Retired; see <code>~/.claude/hooks/STALE.md</code>.</p>
+    </section>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════ GIT & GH ══════════════════════════════ -->
+<div class="panel hidden" data-app="gh">
+  <div class="lede no-print">
+    <p><strong>You have two GitHub accounts.</strong> <code>kilo9alfa</code> is active by default; <code>david4aero</code> is for DataBeacon work. <code>gh</code> uses whichever is <em>active</em> — check before opening a PR, because it is easy to file one as the wrong person.</p>
+  </div>
+  <div class="grid">
+
+    <section data-app="gh">
+      <h2>Which account am I?<span class="appchip">git &amp; gh</span></h2>
+      <table>
+        <tr><td class="k"><code>gh auth status</code></td><td class="d">Who am I logged in as, and which is active<span class="star">★</span></td></tr>
+        <tr><td class="k"><code>gh auth switch --user kilo9alfa</code></td><td class="d">Switch to the personal account</td></tr>
+        <tr><td class="k"><code>gh auth switch --user david4aero</code></td><td class="d">Switch to DataBeacon</td></tr>
+        <tr><td class="k"><code>git config user.name</code></td><td class="d">Who commits will be attributed to <em>(separate from gh)</em></td></tr>
+      </table>
+      <p class="foot"><strong>gh and git identities are independent.</strong> `~/code/analytics/` switches git to <code>david4aero</code> automatically; <code>gh</code> does not follow. Check both before committing or opening a PR.</p>
+    </section>
+
+    <section data-app="gh">
+      <h2>Everyday git<span class="appchip">git &amp; gh</span></h2>
+      <table>
+        <tr><td class="k"><code>gs</code></td><td class="d">git status<span class="star">★</span></td></tr>
+        <tr><td class="k"><code>gd</code></td><td class="d">git diff <em>— or <code>cmux diff --unstaged</code> for the viewer</em></td></tr>
+        <tr><td class="k"><code>ga .</code> &middot; <code>gc "msg"</code></td><td class="d">Stage everything &middot; commit with a message</td></tr>
+        <tr><td class="k"><code>gp</code></td><td class="d">Push this branch to origin</td></tr>
+        <tr><td class="k"><code>gpu</code></td><td class="d">Pull from origin</td></tr>
+        <tr><td class="k"><code>glog</code></td><td class="d">Graph of the last 10 commits</td></tr>
+        <tr><td class="k"><code>gco -b &lt;branch&gt;</code></td><td class="d">Create and switch to a branch</td></tr>
+        <tr><td class="k"><code>git restore &lt;file&gt;</code></td><td class="d">Throw away uncommitted changes to one file</td></tr>
+      </table>
+    </section>
+
+    <section data-app="gh">
+      <h2>Pull requests<span class="appchip">git &amp; gh</span></h2>
+      <table>
+        <tr><td class="k"><code>gh pr create</code></td><td class="d">Open a PR from this branch<span class="star">★</span> <em>add <code>--fill</code> to use the commits</em></td></tr>
+        <tr><td class="k"><code>gh pr list</code></td><td class="d">Open PRs on this repo</td></tr>
+        <tr><td class="k"><code>gh pr status</code></td><td class="d">Yours, and ones awaiting your review</td></tr>
+        <tr><td class="k"><code>gh pr view --web</code></td><td class="d">Open it in the browser</td></tr>
+        <tr><td class="k"><code>gh co &lt;number&gt;</code></td><td class="d">Check out someone's PR locally <em>(your alias for <code>pr checkout</code>)</em></td></tr>
+        <tr><td class="k"><code>gh pr diff</code></td><td class="d">The diff, in the terminal</td></tr>
+        <tr><td class="k"><code>gh pr merge --squash</code></td><td class="d">Squash-merge it</td></tr>
+        <tr><td class="k"><code>gh pr checks</code></td><td class="d">Did CI pass?</td></tr>
+      </table>
+    </section>
+
+    <section data-app="gh">
+      <h2>Issues <span class="note">&mdash; your task tracker</span><span class="appchip">git &amp; gh</span></h2>
+      <table>
+        <tr><td class="k"><code>gh issue list</code></td><td class="d">Open issues here<span class="star">★</span> <em>add <code>--repo owner/name</code> for another</em></td></tr>
+        <tr><td class="k"><code>gh issue create --title "…"</code></td><td class="d">New issue <em>(<code>--label bug</code>, <code>--body …</code>)</em></td></tr>
+        <tr><td class="k"><code>gh issue view &lt;n&gt;</code></td><td class="d">Read one <em>(<code>--web</code> to open it)</em></td></tr>
+        <tr><td class="k"><code>gh issue close &lt;n&gt;</code></td><td class="d">Close it</td></tr>
+        <tr><td class="k">In a commit message</td><td class="d"><code>Fix #123</code> or <code>Closes #123</code> closes it on merge<span class="star">★</span></td></tr>
+      </table>
+      <p class="foot">Common labels: <code>enhancement</code>, <code>bug</code>, <code>deployment</code>, <code>documentation</code>. Personal (non-code) tasks go in the Obsidian Kanban, not here.</p>
+    </section>
+
+    <section data-app="gh">
+      <h2>Repos &amp; runs<span class="appchip">git &amp; gh</span></h2>
+      <table>
+        <tr><td class="k"><code>gh repo clone owner/name</code></td><td class="d">Clone <em>(honours the active account)</em></td></tr>
+        <tr><td class="k"><code>gh repo view --web</code></td><td class="d">Open this repo in the browser</td></tr>
+        <tr><td class="k"><code>gh repo list kilo9alfa</code></td><td class="d">Your repos</td></tr>
+        <tr><td class="k"><code>gh run list</code></td><td class="d">Recent Actions runs</td></tr>
+        <tr><td class="k"><code>gh run watch</code></td><td class="d">Follow the running one live</td></tr>
+        <tr><td class="k"><code>gh browse</code></td><td class="d">Open the current file or line on GitHub</td></tr>
+      </table>
+    </section>
+
+    <section data-app="gh">
+      <h2>SSH host aliases <span class="note">&mdash; on Nuclaw</span><span class="appchip">git &amp; gh</span></h2>
+      <table>
+        <tr><td class="k"><code>github.com-k9a</code></td><td class="d">Personal key &rarr; <code>git@github.com-k9a:kilo9alfa/&lt;repo&gt;.git</code></td></tr>
+        <tr><td class="k"><code>github.com-db</code></td><td class="d">DataBeacon key &rarr; <code>git@github.com-db:databeacon/&lt;repo&gt;.git</code></td></tr>
+      </table>
+      <p class="foot">Use these in <code>git remote</code> URLs on Nuclaw so the right key is offered.</p>
+    </section>
+
+    <section data-app="gh">
+      <h2>The dual-repo dance <span class="note">&mdash; dotfiles</span><span class="appchip">git &amp; gh</span></h2>
+      <table>
+        <tr><td class="k"><code>kilo9alfa/dotfiles</code></td><td class="d"><strong>Private</strong> — full working copy</td></tr>
+        <tr><td class="k"><code>kilo9alfa/dotfiles-public</code></td><td class="d"><strong>Public</strong> — curated, no personal data</td></tr>
+      </table>
+      <p class="foot">After committing to the private repo, copy any shareable file into <code>/tmp/dotfiles-public</code> and commit there too. Never sync: <code>git/.gitconfig</code>, <code>docs/</code>, <code>CLAUDE.md</code>, <code>claude/</code>, <code>btt/</code>, <code>obsidian/.obsidian/workspace.json</code>.</p>
     </section>
 
   </div>
