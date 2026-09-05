@@ -157,6 +157,7 @@
     <button data-app="vscode" aria-selected="false">VS&nbsp;Code</button>
     <button data-app="claude" aria-selected="false">Claude&nbsp;Code</button>
     <button data-app="gh" aria-selected="false">git&nbsp;&amp;&nbsp;gh</button>
+    <button data-app="nuclaw" aria-selected="false">Nuclaw</button>
   </nav>
 </header>
 
@@ -711,6 +712,97 @@
         <tr><td class="k"><code>kilo9alfa/dotfiles-public</code></td><td class="d"><strong>Public</strong> — curated, no personal data</td></tr>
       </table>
       <p class="foot">After committing to the private repo, copy any shareable file into <code>/tmp/dotfiles-public</code> and commit there too. Never sync: <code>git/.gitconfig</code>, <code>docs/</code>, <code>CLAUDE.md</code>, <code>claude/</code>, <code>btt/</code>, <code>obsidian/.obsidian/workspace.json</code>.</p>
+    </section>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════ NUCLAW ══════════════════════════════ -->
+<div class="panel hidden" data-app="nuclaw">
+  <div class="lede no-print">
+    <p><strong>Nuclaw</strong> is the always-on Slimbook ONE at home — Debian 12, Intel N100, 8&nbsp;GB RAM. Reachable from anywhere over Tailscale. <code>ssh r5c-1</code> gets you there.</p>
+    <p><strong>Anything longer than ~30 seconds goes in tmux, never <code>nohup &amp;</code></strong> — so you can attach and watch it.</p>
+  </div>
+  <div class="grid">
+
+    <section data-app="nuclaw">
+      <h2>Getting there<span class="appchip">Nuclaw</span></h2>
+      <table>
+        <tr><td class="k"><code>ssh r5c-1</code></td><td class="d">Shell on Nuclaw<span class="star">★</span> <em>alias in <code>~/.ssh/config</code>, over Tailscale</em></td></tr>
+        <tr><td class="k"><kbd>⌃⌥</kbd><kbd>N</kbd></td><td class="d">Mirror Nuclaw's tmux sessions into cmux<span class="star">★</span> <em>every app except VS Code</em></td></tr>
+        <tr><td class="k"><code>cmux ssh-tmux r5c-1</code></td><td class="d">The same thing, from the shell</td></tr>
+        <tr><td class="k"><code>100.112.77.14</code></td><td class="d">Tailscale IP &middot; hostname <code>r5c-1</code></td></tr>
+        <tr><td class="k"><code>~/code/&lt;project&gt;</code></td><td class="d">Code root — mirrors the Mac convention</td></tr>
+      </table>
+      <p class="foot">Login <code>admin</code> / <code>admin</code>, passwordless sudo. Claude Code lives at <code>~/.local/bin/claude</code> and is already authenticated.</p>
+    </section>
+
+    <section data-app="nuclaw">
+      <h2>Claude on Nuclaw<span class="appchip">Nuclaw</span></h2>
+      <table>
+        <tr><td class="k"><code>nucclauded &lt;project&gt;</code></td><td class="d">Run Claude there inside tmux — survives SSH drops<span class="star">★</span></td></tr>
+        <tr><td class="k"><code>nucclauded localr5 id:&lt;uuid&gt;</code></td><td class="d">Resume a specific session</td></tr>
+        <tr><td class="k"><code>nlr5</code></td><td class="d">Force-reattach <code>localr5</code>, kicking any other client</td></tr>
+        <tr><td class="k"><code>ssh -t r5c-1 'tmux a -t &lt;project&gt;'</code></td><td class="d">Reattach to any project later</td></tr>
+      </table>
+      <p class="foot"><code>clauded</code> on either machine loads <code>docs/CurrentState.md</code> (or the newest EndOfSessionSummary) as context and prints the resume ID.</p>
+    </section>
+
+    <section data-app="nuclaw">
+      <h2>tmux — the long-job pattern<span class="appchip">Nuclaw</span></h2>
+      <table>
+        <tr><td class="k"><code>tmux new -d -s &lt;job&gt; '…'</code></td><td class="d">Start detached, one session per job<span class="star">★</span></td></tr>
+        <tr><td class="k"><code>ssh -t r5c-1 tmux attach -t &lt;job&gt;</code></td><td class="d">Watch it live, from anywhere</td></tr>
+        <tr><td class="k"><code>ssh r5c-1 tmux ls</code></td><td class="d">What's running</td></tr>
+        <tr><td class="k"><code>ssh r5c-1 tmux kill-session -t &lt;job&gt;</code></td><td class="d">Stop one</td></tr>
+        <tr><td class="k"><kbd>Ctrl-b</kbd> <kbd>d</kbd></td><td class="d">Detach — leaves everything running</td></tr>
+        <tr><td class="k"><kbd>Ctrl-b</kbd> <kbd>%</kbd> / <kbd>"</kbd> / <kbd>x</kbd></td><td class="d">Split right / down / close pane</td></tr>
+      </table>
+      <p class="foot">Pipe through <code>2&gt;&amp;1 | tee logs/&lt;job&gt;.log</code> so there's a record. Name the session after the <em>job</em>, not the project.</p>
+    </section>
+
+    <section data-app="nuclaw">
+      <h2>Files between the two machines<span class="appchip">Nuclaw</span></h2>
+      <table>
+        <tr><td class="k"><code>mount_remote /code/&lt;name&gt;</code></td><td class="d">Mount a remote folder at <code>~/Mounts/&lt;name&gt;</code> via SSHFS</td></tr>
+        <tr><td class="k"><code>umount_remote &lt;name&gt;</code></td><td class="d">Unmount it</td></tr>
+        <tr><td class="k"><code>scp file r5c-1:~/code/</code></td><td class="d">One-off copy over</td></tr>
+        <tr><td class="k"><code>rsync -ah --info=progress2 …</code></td><td class="d">Bulk copy with progress</td></tr>
+      </table>
+    </section>
+
+    <section data-app="nuclaw">
+      <h2>Backup drive <span class="note">&mdash; 16 TB Elements</span><span class="appchip">Nuclaw</span></h2>
+      <table>
+        <tr><td class="k"><code>/mnt/elements</code></td><td class="d">Primary backup target<span class="star">★</span> — 14.6 TiB, NTFS</td></tr>
+        <tr><td class="k"><code>smb://100.112.77.14/elements</code></td><td class="d">Mount from Finder: <kbd>⌘</kbd><kbd>K</kbd>, user/pass <code>admin</code></td></tr>
+        <tr><td class="k"><code>/mnt/backup</code></td><td class="d">Toshiba 1 TB, exFAT — legacy, travels with David</td></tr>
+      </table>
+      <p class="foot">Writing from a Nuclaw shell needs the NTFS flags:<br>
+        <code>rsync -ah --info=progress2 --no-perms --no-owner --no-group src/ /mnt/elements/dest/</code><br>
+        Speed caps at ~30–60 MB/s (NTFS-3g via FUSE).</p>
+    </section>
+
+    <section data-app="nuclaw">
+      <h2>Passwords <span class="note">&mdash; Vaultwarden</span><span class="appchip">Nuclaw</span></h2>
+      <table>
+        <tr><td class="k"><code>bw get password "&lt;name&gt;"</code></td><td class="d">On Nuclaw — session auto-loads<span class="star">★</span></td></tr>
+        <tr><td class="k">From the Mac</td><td class="d"><code>ssh r5c-1 'BW_SESSION=$(cat ~/.config/bw-session) bw get password "&lt;name&gt;"'</code></td></tr>
+        <tr><td class="k"><code>bw list items --search "&lt;term&gt;"</code></td><td class="d">Find an entry</td></tr>
+        <tr><td class="k">Session expired?</td><td class="d"><code>ssh -t r5c-1 'bw unlock --raw &gt; ~/.config/bw-session'</code></td></tr>
+      </table>
+      <p class="foot">Server <code>https://r5c-1.tail806b7f.ts.net</code>, tailnet-only. Vaults: Innaxis, DataBeacon, kilo9alfa. <strong>Never put secrets in <code>.env</code> files or scripts</strong> — fetch at runtime. A stale session makes MCP servers fail silently with empty tokens.</p>
+    </section>
+
+    <section data-app="nuclaw">
+      <h2>Git identity there<span class="appchip">Nuclaw</span></h2>
+      <table>
+        <tr><td class="k">Default</td><td class="d"><code>kilo9alfa</code></td></tr>
+        <tr><td class="k"><code>~/code/analytics/</code></td><td class="d">Switches to <code>david4aero</code> automatically <em>(gitconfig <code>includeIf</code>)</em></td></tr>
+        <tr><td class="k"><code>github.com-k9a</code></td><td class="d">Personal key — <code>git@github.com-k9a:kilo9alfa/&lt;repo&gt;.git</code></td></tr>
+        <tr><td class="k"><code>github.com-db</code></td><td class="d">DataBeacon key — <code>git@github.com-db:databeacon/&lt;repo&gt;.git</code></td></tr>
+      </table>
+      <p class="foot">Project notes live in <code>~/code/nuclaw/</code> (repo <code>kilo9alfa/nuclaw</code>, private).</p>
     </section>
 
   </div>
